@@ -7,9 +7,17 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav">
+        <% if logged_in? %>
+              <li class="nav-item"><%= link_to 'Drive now!', user_path(current_user), class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'My Page', user_path(current_user), class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'Signout', logout_path, method: :delete, class: 'nav-link'%></li>
+            </ul>
+          </li>
+        <% else %>
         <li class="nav-item"><%= link_to 'Home', root_path, class: 'nav-link' %></li>
-        <li class="nav-item"><a href="#" class="nav-link">Signin</a></li>
+         <li class="nav-item"><%= link_to 'Signin', login_path, class: 'nav-link' %></li>
         <li class="nav-item"><%= link_to 'Signup', signup_path, class: 'nav-link' %></li>
+        <% end %>
       </ul>
     </div>
   </nav>

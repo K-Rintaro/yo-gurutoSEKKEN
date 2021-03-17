@@ -1,16 +1,129 @@
-<div class="row">
-  <aside class="col-sm-4">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%= @user.name %>様の運転情報</h3>
-      </div>
-    </div>
-  </aside>
-  <div class="col-sm-8">
-    <ul class="nav nav-tabs nav-justified mb-3">
-      <li class="nav-item"><a href="#" class="nav-link">Microposts</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Followings</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Followers</a></li>
-    </ul>
+<div class="ue">
+	<h1><%= @user.name %>様の運転情報</h3>
+</div>
+<div class="card">
+  <div class="card-header">
+    位置情報に基づく天候情報
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><div id="mydiv"><p>現在天候情報を取得中です... 瞬くお待ちください</p></div></h5>
   </div>
 </div>
+<div class="aida">
+	<div class="card">
+  <div class="card-header">
+    警告表示履歴
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><div id="example"><p>これまでの警告表示はありません。これからも安全運転を宜しくお願いいたします</p></div></h5>
+  </div>
+</div>
+</div>
+<style>
+	.aida {
+		margin-top: 2cm ;
+	}
+	.ue {
+		margin-bottom: 1cm ;
+	}
+</style>
+<script>
+   let userid =  <%= @user.id %>
+   if( navigator.geolocation )
+{
+
+	navigator.geolocation.getCurrentPosition(
+
+		function( position )
+		{
+			var data = position.coords ;
+
+			var lat = data.latitude ;
+			var lng = data.longitude ;
+			var alt = data.altitude ;
+
+           async function postData(url = '', data = {}) {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify({ ido: lat, keido: lng }) 
+               })
+               return response.json();
+            }
+           postData('https://foryo-gurutosekken.herokuapp.com/')
+           .then(data => {
+               console.log(data);
+               var tenki = data[0]
+               var tenkidetail = data[1]
+               if (tenkidetail = "clear sky"){
+               	var tenki =  "快晴"
+               	var caution = ""
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "few clouds"){
+               	var tenki = "晴れ"
+               	var caution = ""
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "scattered clouds"){
+               	var tenki = "曇り"
+               	var caution = "急な天気の変化にはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "broken clouds"){
+               	var tenki = "千切れ雲"
+               	var caution = "急な天気の変化にはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "shower rain"){
+               	var tenki = "小雨"
+               	var caution = "路面が濡れている場合があります。スリップにはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "rain"){
+               	var tenki = "雨"
+               	var caution = "視界が悪い場合があります。スリップにはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "thunderstorm"){
+               	var tenki = "雷雨"
+               	var caution = "視界が悪い場合があります。スリップにはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "snow"){
+               	var tenki = "雪"
+               	var caution = "視界が悪い場合があります。スリップにはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail = "mist"){
+               	var tenki = "霧"
+               	var caution = "視界が悪い場合があります。スリップにはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }
+            });
+		},
+		function( error )
+		{
+			var errorInfo = [
+				"原因不明のエラーが発生しました…。" ,
+				"位置情報の取得が許可されませんでした…。" ,
+				"電波状況などで位置情報が取得できませんでした…。" ,
+				"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
+			] ;
+			var errorNo = error.code ;
+			var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
+			alert( errorMessage ) ;
+			document.getElementById("result").innerHTML = errorMessage;
+		} ,
+
+		{
+			"enableHighAccuracy": false,
+			"timeout": 10000,
+			"maximumAge": 2000,
+		}
+
+	) ;
+}
+else
+{
+	var errorMessage = "お使いの端末は、GeoLacation APIに対応していません。" ;
+	document.getElementById('mydiv').innerHTML = `<p>${errorMessage}</p>`;
+	alert( errorMessage ) ;
+
+	document.getElementById( 'result' ).innerHTML = errorMessage ;
+}
+</script>

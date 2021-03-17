@@ -1,3 +1,6 @@
+<% if logged_in? %>
+  <p>ログイン完了ユーザ: <%= current_user.name %></p>
+<% else %>
 <h1>Yo-gututoSEKKENは高齢のドライバーの方のための運転支援アプリケーションです</h1>
 <p>Yo-gurutoSEKKENは昨今社会的課題となっている交通事故問題を解決する一つの手法として開発されました</p>
 <%= link_to 'SIGN UP NOW!', signup_path, class: 'btn btn-lg btn-primary' %>
@@ -19,3 +22,4 @@
     <p>機能④</p>
     <p>Coming soon...</p>
 </div>
+<% end %>
