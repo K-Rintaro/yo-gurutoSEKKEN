@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_044336) do
+ActiveRecord::Schema.define(version: 2021_03_17_145705) do
+
+  create_table "logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "caution"
+    t.bigint "user_id"
+    t.string "ido"
+    t.string "keido"
+    t.string "detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_logs_on_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -20,4 +31,5 @@ ActiveRecord::Schema.define(version: 2021_03_16_044336) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "logs", "users"
 end

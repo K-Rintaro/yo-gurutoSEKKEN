@@ -1,25 +1,109 @@
 <% if logged_in? %>
   <p>ログイン完了ユーザ: <%= current_user.name %></p>
-<% else %>
-<h1>Yo-gututoSEKKENは高齢のドライバーの方のための運転支援アプリケーションです</h1>
-<p>Yo-gurutoSEKKENは昨今社会的課題となっている交通事故問題を解決する一つの手法として開発されました</p>
-<%= link_to 'SIGN UP NOW!', signup_path, class: 'btn btn-lg btn-primary' %>
+<h1 class="display-4">Yo-gututoSEKKENは高齢のドライバーの方のための運転支援アプリケーションです</h1>
+<nav aria-label="breadcrumb" class="text-center">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Yo-gurutoSEKKENは昨今社会的課題となっている交通事故問題を解決する一つの手法として開発されました</li>
+  </ol>
+</nav>
 <img></img>
-<p>Yo-gurutoSEKKENの主な機能</p>
-<div class="ichi">
-    <p>機能①</p>
-    <p>急激な速度上昇・速度超過を検知した場合は大きなアラートと警告画面で警告を行います</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能①</h5>
+                    <p class="card-text">急激な速度上昇・速度超過を検知した場合は大きなアラートと警告画面で警告を行います</p>
+                </div>
+            </div>     
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能②</h5>
+                    <p class="card-text">天気情報に基づき、路面状況等において注意が必要な場合は音声案内を行います</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="nii">
-    <p>機能②</p>
-    <p>天気情報に基づき、路面状況等において注意が必要な場合は音声案内を行います</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能③</h5>
+                    <p class="card-text">本アプリが行った警告はログとして残りますのでご家族の方などもチェックできます</p>
+                </div>
+            </div>     
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能④</h5>
+                    <p class="card-text">運転時に位置情報に基づく時速及び現在地を表示します。目安としてご利用ください</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="sann">
-    <p>機能③</p>
-    <p>本アプリが行った警告はログとして残りますのでご家族の方などもチェックできます</p>
+<style>
+    .card{
+        margin-bottom: 1cm;
+    }
+</style>
+<% else %>
+<h1 class="display-4">Yo-gututoSEKKENは高齢のドライバーの方のための運転支援アプリケーションです</h1>
+<nav aria-label="breadcrumb" class="text-center">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Yo-gurutoSEKKENは昨今社会的課題となっている交通事故問題を解決する一つの手法として開発されました</li>
+  </ol>
+</nav>
+　<%= link_to 'SIGN UP NOW!', signup_path, class: 'btn btn-lg btn-primary' %>
+<img></img>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能①</h5>
+                    <p class="card-text">急激な速度上昇・速度超過を検知した場合は大きなアラートと警告画面で警告を行います</p>
+                </div>
+            </div>     
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能②</h5>
+                    <p class="card-text">天気情報に基づき、路面状況等において注意が必要な場合は音声案内を行います</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="yonn">
-    <p>機能④</p>
-    <p>Coming soon...</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能③</h5>
+                    <p class="card-text">本アプリが行った警告はログとして残りますのでご家族の方などもチェックできます</p>
+                </div>
+            </div>     
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">機能④</h5>
+                    <p class="card-text">運転時に位置情報に基づく時速及び現在地を表示します。目安としてご利用ください</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<style>
+    .card{
+        margin-bottom: 1cm;
+    }
+</style>
 <% end %>
