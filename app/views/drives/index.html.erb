@@ -1,109 +1,25 @@
-<h1>運転サポートモードOFF</h1>
-<div class="onoff">
-  <button id="tenkibutton" type="button" class="btn btn-primary">ONにする</button>
+<div class="matomerukun">
+    <div class="hyouji" id="hyouji">
+    <h1>運転サポートモードOFF</h1>
+    </div>
+    <div class="onoff" id="onoff">
+    <button id="tenkibutton" type="button" class="btn btn-primary">ONにする</button>
 </div>
-<script>
-const utterance = new SpeechSynthesisUtterance();
-utterance.name = "Google 日本語"
-utterance.lang = "ja-JP"
-utterance.rate = 0.7
-document.getElementById("tenkibutton").onclick = function() {
-  if( navigator.geolocation ){
-	navigator.geolocation.getCurrentPosition(
-
-		function( position )
-		{
-		  var yomiage = `運転支援モードがオンになりました。運転支援を開始します`
-      utterance.text = yomiage;
-      speechSynthesis.speak(utterance);
-			var data = position.coords ;
-
-			var lat = data.latitude ;
-			var lng = data.longitude ;
-			var alt = data.altitude ;
-           async function postData(url = '', data = {}) {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                body: JSON.stringify({ ido: lat, keido: lng }) 
-               })
-               return response.json();
-            }
-           postData('https://foryo-gurutosekken.herokuapp.com/')
-           .then(data => {
-               console.log(data);
-               var tenki = data[0]
-               var tenkidetail = data[1]
-               if (tenkidetail = "clear sky"){
-               	var yomiagetenki = `現在地のお天気は快晴です。安全な運転を宜しくお願いいたします`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "few clouds"){
-               	var yomiagetenki = `現在地のお天気は晴れです。安全な運転を宜しくお願いいたします`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "scattered clouds"){
-               	var yomiagetenki = `現在地のお天気は曇りです。急な天気の変化にはご注意ください`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "broken clouds"){
-               	var yomiagetenki = `現在地のお天気は千切れ雲です。急な天気の変化にはご注意ください`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "shower rain"){
-               	var yomiagetenki = `現在地のお天気は小雨です。スリップにはご注意ください`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "rain"){
-               	var yomiagetenki = `現在地のお天気は雨です。視界が悪い場合があります。スリップにはご注意ください`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "thunderstorm"){
-               	var yomiagetenki = `現在地のお天気は雷雨です。視界が悪い場合があります。スリップにはご注意ください`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "snow"){
-               	var yomiagetenki = `現在地のお天気は雪です。視界が悪い場合があります。スリップにはご注意ください`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "mist"){
-               	var yomiagetenki = `現在地のお天気は霧です。視界が悪い場合があります。注意して走行してください`
-               	utterance.text = yomiagetenki;
-               	speechSynthesis.speak(utterance);
-               }
-            });
-		},
-		function( error )
-		{
-			var errorInfo = [
-				"原因不明のエラーが発生しました…。" ,
-				"位置情報の取得が許可されませんでした…。" ,
-				"電波状況などで位置情報が取得できませんでした…。" ,
-				"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
-			] ;
-			var errorNo = error.code ;
-			var errorMessage = "エラー番号:" + errorNo + errorInfo[ errorNo ] ;
-			utterance.text = errorMessage;
-			speechSynthesis.speak(utterance);
-		} ,
-
-		{
-			"enableHighAccuracy": false,
-			"timeout": 10000,
-			"maximumAge": 2000,
-		}
-
-	) ;
-}
-else
-{
-	var errorMessage = "お使いの端末は、GeoLacation APIに対応していません。" ;
-	utterance.text = errorMessage;
-	speechSynthesis.speak(utterance);
-}
-};
-</script>
+</div>
+<div class="jisoku" id="jisoku">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        <h2>現在時速 -- km(目安)</h2>
+    </div>
+</div>
 <style>
+    .matomerukun{
+        display: flex;
+    }
+    .onoff{
+        margin-left: 1cm;
+    }
+    .jisoku{
+        margin-top: 1cm;
+    }
 </style>
+<%= javascript_include_tag "driver.js" %>

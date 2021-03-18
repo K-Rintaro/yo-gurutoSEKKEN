@@ -9,7 +9,7 @@
       <ul class="navbar-nav">
         <% if logged_in? %>
               <li class="nav-item"><%= link_to 'Drive now!', drives_path, class: 'nav-link' %></li>
-              <li class="nav-item"><%= link_to 'My Page', user_path(current_user), class: 'nav-link' %></li>
+              <li class="nav-item" id="kokogairu"><%= link_to 'My Page', user_path(current_user), class: 'nav-link'%></li>
               <li class="nav-item"><%= link_to 'Signout', logout_path, method: :delete, class: 'nav-link'%></li>
             </ul>
           </li>
