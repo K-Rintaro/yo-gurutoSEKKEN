@@ -18,6 +18,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 			var lat = data.latitude ;
 			var lng = data.longitude ;
 			var alt = data.altitude ;
+			console.log(lat,lng)
+           
            async function postData(url = '', data = {}) {
                 const response = await fetch(url, {
                     method: 'POST',
@@ -87,14 +89,25 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 		} ,
 
 		{
-			"enableHighAccuracy": false,
+			"enableHighAccuracy": true,
 			"timeout": 10000,
 			"maximumAge": 2000,
 		}
 
 	) ;
 	navigator.geolocation.watchPosition((position) => {
+	    const lat = position.coords.latitude;
+	    const lng = position.coords.longitude;
 	    const speed  = position.coords.speed;
+	       var mymap = L.map('map');
+			
+           L.tileLayer(`https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png`, {
+                maxZoom: 19,
+                attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
+            }).addTo(mymap);
+	       mymap.setView([lat, lng], 15);
+           var marker = L.marker([lat, lng]).addTo(mymap);
+           marker.bindPopup("現在地");
 	    console.log("SPEED: " + speed)
 	    document.getElementById("jisoku").innerHTML = `
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
