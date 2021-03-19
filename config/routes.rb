@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   get 'drives', to: 'drives#index'
   
+  resources :logs, only: [:create]
   resources :users, only: [:show, :create]
 end

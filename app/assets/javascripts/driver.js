@@ -100,7 +100,17 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
         <h2>現在時速 ${speed} km(目安)</h2>
     </div>
+	    `;
+	window.setTimeout(nullhantei, 5000);
+    function nullhantei(){
+	    if(speed === null){
+	    document.getElementById("jisoku").innerHTML =`
+	    <div class="alert alert-danger" role="alert">
+            お使いの端末ではスピードを測定できません。対応するAndroid端末ないしはiPhoneでご利用ください
+        </div>
 	    `
+	    }
+    }
 });
 }
 else
