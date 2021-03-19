@@ -96,12 +96,16 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 		}
 
 	) ;
-	navigator.geolocation.watchPosition((position) => {
-	    const lat = position.coords.latitude;
-	    const lng = position.coords.longitude;
-	    const speed  = position.coords.speed;
-	    const speednumber = Math.floor(speed);
-	    if (speed > 1){
+	const checkspeedlimit = () => {
+		navigator.geolocation.getCurrentPosition(
+
+		function( position )
+		{
+			var data = position.coords ;
+
+			var lat = data.latitude ;
+			var lng = data.longitude ;
+		    if (speed > 2){
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                	utterance.text = sokudochoukadayo;
                	speechSynthesis.speak(utterance);
@@ -111,6 +115,14 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	            data: {caution: "危険速度(一般道の場合)", ido: lat, keido: lng, detail: `${speednumber}km/h`}
 	        })
 	    }
+		})
+    }
+    setInterval(checkspeedlimit(), 10000);
+	navigator.geolocation.watchPosition((position) => {
+	    const lat = position.coords.latitude;
+	    const lng = position.coords.longitude;
+	    const speed  = position.coords.speed;
+	    const speednumber = Math.floor(speed);
 	    
 	       var mymap = L.map('map');
 			
@@ -145,8 +157,6 @@ else
 	utterance.text = errorMessage;
 	speechSynthesis.speak(utterance);
 }
-
-
 
 document.getElementById("offbutton").onclick = function() {
     document.getElementById('hyouji').innerHTML = `<h1>運転支援モードを終了します。マイページに移動します。</h1>`
