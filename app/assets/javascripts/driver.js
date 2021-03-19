@@ -105,7 +105,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 
 			var lat = data.latitude ;
 			var lng = data.longitude ;
-		    if (speed > 2){
+		    if (speed > 1){
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                	utterance.text = sokudochoukadayo;
                	speechSynthesis.speak(utterance);
