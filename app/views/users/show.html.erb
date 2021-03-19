@@ -14,9 +14,7 @@
   <div class="card-header">
     警告表示履歴
   </div>
-  <div class="card-body">
-    <h5 class="card-title"><div id="example"><p>これまでの警告表示はありません。これからも安全運転を宜しくお願いいたします</p></div></h5>
-  </div>
+  <%= render 'logs/logs', logs: @logs %>
 </div>
 </div>
 <style>
