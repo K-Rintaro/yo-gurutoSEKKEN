@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:show, :destroy]
   def show
     @user = User.find(params[:id])
+    @logs = @user.logs.order(id: :desc).page(params[:page])
   end
 
   def new
