@@ -19,6 +19,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 			var lng = data.longitude ;
 			var alt = data.altitude ;
 			console.log(lat,lng)
+			
            
            async function postData(url = '', data = {}) {
                 const response = await fetch(url, {
@@ -99,6 +100,18 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    const lat = position.coords.latitude;
 	    const lng = position.coords.longitude;
 	    const speed  = position.coords.speed;
+	    const speednumber = Math.floor(speed);
+	    if (speed > 1){
+	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
+               	utterance.text = sokudochoukadayo;
+               	speechSynthesis.speak(utterance);
+	        $.ajax({
+	            url: "/logs",
+	            type: "POST",
+	            data: {caution: "危険速度(一般道の場合)", ido: lat, keido: lng, detail: `${speednumber}km/h`}
+	        })
+	    }
+	    
 	       var mymap = L.map('map');
 			
            L.tileLayer(`https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png`, {
@@ -111,7 +124,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    console.log("SPEED: " + speed)
 	    document.getElementById("jisoku").innerHTML = `
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
-        <h2>現在時速 ${speed} km(目安)</h2>
+        <h2>現在時速 ${speednumber} km(目安)</h2>
     </div>
 	    `;
 	window.setTimeout(nullhantei, 5000);
