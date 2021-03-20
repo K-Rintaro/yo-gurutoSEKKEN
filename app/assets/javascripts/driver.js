@@ -96,23 +96,29 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 		}
 
 	) ;
-    }
+
+
+
+
+    setInterval(checkspeedlimit(), 10000);
 	navigator.geolocation.watchPosition((position) => {
 	    const lat = position.coords.latitude;
 	    const lng = position.coords.longitude;
 	    const speed  = position.coords.speed;
-	       
-	       var mymap = L.map('map');
-	       
-		    if (speed > 1){
-	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speed}キロメートルです。高速道路の場合はこの限りではありません。`
+	    const speednumber = Math.floor(speed);
+	    
+	    if (speed > 1){
+	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                	utterance.text = sokudochoukadayo;
                	speechSynthesis.speak(utterance);
 	        $.ajax({
-	            url: "/logs",
+	            url: urldesuu,
 	            type: "POST",
 	            data: {caution: "危険速度(一般道の場合)", ido: lat, keido: lng, detail: `${speednumber}km/h`}
 	        })
+	    }
+	    
+	       var mymap = L.map('map');
 			
            L.tileLayer(`https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png`, {
                 maxZoom: 19,
@@ -124,7 +130,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    console.log("SPEED: " + speed)
 	    document.getElementById("jisoku").innerHTML = `
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
-        <h2>現在時速 ${speed} km(目安)</h2>
+        <h2>現在時速 ${speednumber} km(目安)</h2>
     </div>
 	    `;
 	window.setTimeout(nullhantei, 5000);
