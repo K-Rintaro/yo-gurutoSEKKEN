@@ -53,41 +53,40 @@
            postData('https://foryo-gurutosekken.herokuapp.com/')
            .then(data => {
                console.log(data);
-               var tenki = data[0]
                var tenkidetail = data[1]
-               if (tenkidetail = "clear sky"){
+               if (tenkidetail == "clear sky"){
                	var tenki =  "快晴"
                	var caution = ""
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "few clouds"){
+               }else if (tenkidetail == "few clouds"){
                	var tenki = "晴れ"
                	var caution = ""
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "scattered clouds"){
+               }else if (tenkidetail == "scattered clouds"){
                	var tenki = "曇り"
                	var caution = "急な天気の変化にはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "broken clouds"){
+               }else if (tenkidetail == "broken clouds"){
                	var tenki = "千切れ雲"
                	var caution = "急な天気の変化にはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "shower rain"){
+               }else if (tenkidetail == "shower rain"){
                	var tenki = "小雨"
                	var caution = "路面が濡れている場合があります。スリップにはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "rain"){
+               }else if (tenkidetail == "rain"){
                	var tenki = "雨"
                	var caution = "視界が悪い場合があります。スリップにはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "thunderstorm"){
+               }else if (tenkidetail == "thunderstorm"){
                	var tenki = "雷雨"
                	var caution = "視界が悪い場合があります。スリップにはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "snow"){
+               }else if (tenkidetail == "snow"){
                	var tenki = "雪"
                	var caution = "視界が悪い場合があります。スリップにはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
-               }else if (tenkidetail = "mist"){
+               }else if (tenkidetail == "mist"){
                	var tenki = "霧"
                	var caution = "視界が悪い場合があります。スリップにはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;

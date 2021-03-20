@@ -34,41 +34,40 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
            postData('https://foryo-gurutosekken.herokuapp.com/')
            .then(data => {
                console.log(data);
-               var tenki = data[0]
                var tenkidetail = data[1]
-               if (tenkidetail = "clear sky"){
+               if (tenkidetail == "clear sky"){
                	var yomiagetenki = `現在地のお天気は快晴です。安全な運転を宜しくお願いいたします`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "few clouds"){
+               }else if (tenkidetail == "few clouds"){
                	var yomiagetenki = `現在地のお天気は晴れです。安全な運転を宜しくお願いいたします`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "scattered clouds"){
+               }else if (tenkidetail == "scattered clouds"){
                	var yomiagetenki = `現在地のお天気は曇りです。急な天気の変化にはご注意ください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "broken clouds"){
+               }else if (tenkidetail == "broken clouds"){
                	var yomiagetenki = `現在地のお天気は千切れ雲です。急な天気の変化にはご注意ください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "shower rain"){
+               }else if (tenkidetail == "shower rain"){
                	var yomiagetenki = `現在地のお天気は小雨です。スリップにはご注意ください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "rain"){
+               }else if (tenkidetail == "rain"){
                	var yomiagetenki = `現在地のお天気は雨です。視界が悪い場合があります。スリップにはご注意ください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "thunderstorm"){
+               }else if (tenkidetail == "thunderstorm"){
                	var yomiagetenki = `現在地のお天気は雷雨です。視界が悪い場合があります。スリップにはご注意ください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "snow"){
+               }else if (tenkidetail == "snow"){
                	var yomiagetenki = `現在地のお天気は雪です。視界が悪い場合があります。スリップにはご注意ください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
-               }else if (tenkidetail = "mist"){
+               }else if (tenkidetail == "mist"){
                	var yomiagetenki = `現在地のお天気は霧です。視界が悪い場合があります。注意して走行してください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
@@ -98,9 +97,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	) ;
 
 
-
-
-    setInterval(checkspeedlimit(), 10000);
 	navigator.geolocation.watchPosition((position) => {
 	    const lat = position.coords.latitude;
 	    const lng = position.coords.longitude;
