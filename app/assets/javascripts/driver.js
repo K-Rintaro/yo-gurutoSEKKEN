@@ -98,10 +98,11 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 
 
 	navigator.geolocation.watchPosition((position) => {
-	    const lat = position.coords.latitude;
-	    const lng = position.coords.longitude;
-	    const speed  = position.coords.speed;
-	    const speednumber = Math.floor(speed);
+		const checkdayo = () => {
+			 let lat = position.coords.latitude;
+	    let lng = position.coords.longitude;
+	    let speed  = position.coords.speed;
+	    let speednumber = Math.floor(speed);
 	    
 	    if (speed > 3){
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
@@ -129,6 +130,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         <h2>現在時速 ${speednumber} km(目安)</h2>
     </div>
 	    `;
+		}
+		setInterval(checkdayo, 5000);
 	window.setTimeout(nullhantei, 5000);
     function nullhantei(){
 	    if(speed === null){
