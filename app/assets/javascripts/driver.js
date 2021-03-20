@@ -79,6 +79,18 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                	var yomiagetenki = `現在地のお天気は霧です。視界が悪い場合があります。注意して走行してください`
                	utterance.text = yomiagetenki;
                	speechSynthesis.speak(utterance);
+               }else if (tenkidetail == "light rain"){
+               	var yomiagetenki = `現在地のお天気は雨です。視界が悪い場合があります。スリップにはご注意ください`
+               	utterance.text = yomiagetenki;
+               	speechSynthesis.speak(utterance);
+               }else if (tenkidetail == "moderate rain"){
+               	var yomiagetenki = `現在地のお天気は雨です。視界が悪い場合があります。スリップにはご注意ください`
+               	utterance.text = yomiagetenki;
+               	speechSynthesis.speak(utterance);
+               }else{
+               	var yomiagetenki = `現在地のお天気は${tenkidetail}です。`
+               	utterance.text = yomiagetenki;
+               	speechSynthesis.speak(utterance);
                }
             });
 		},
@@ -106,7 +118,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	
 	const checkdayo = () => {
 		navigator.geolocation.getCurrentPosition((position) => {
-					let lat = position.coords.latitude;
+		let lat = position.coords.latitude;
 	    let lng = position.coords.longitude;
 	    let speed  = position.coords.speed;
 	    let speednumber = Math.floor(speed);
@@ -122,15 +134,10 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	        })
 	    }
 	       
-	       var mymap = L.map('map');
-			
-           L.tileLayer(`https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png`, {
-                maxZoom: 19,
-                attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
-            }).addTo(mymap);
-	       mymap.setView([lat, lng], 15);
-           var marker = L.marker([lat, lng]).addTo(mymap);
-           marker.bindPopup("現在地");
+	    document.getElementById("map").innerHTML = 
+	    `
+        <iframe src="https://maps.google.com/maps?output=embed&q=${lat},${lng}&t=m&hl=ja&z=18" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        `
 	    console.log("SPEED: " + speed)
 	    document.getElementById("jisoku").innerHTML = `
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
