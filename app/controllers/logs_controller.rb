@@ -2,13 +2,11 @@ class LogsController < ApplicationController
   before_action :require_user_logged_in
   before_action :correct_user, only: [:create]
   def create
-    @log = current_user.logs.build(log_params)
+    @log = Log.new(log_params)
     if @log.save
-      flash[:success] = '警告を記録しました'
-      redirect_to root_url
-    else
-      @logs = current_user.logs.order(id: :desc).page(params[:page])
-      flash.now[:danger] = '警告の記録に失敗しました'
+      respond_to do |format|
+        format.json { render json: {id: @log.id, caution: @log.caution, ido: @log.ido, keido: @log.keido, detail: @log.detail } }
+      end
     end
   end
   

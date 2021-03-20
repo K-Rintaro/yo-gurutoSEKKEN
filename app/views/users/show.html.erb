@@ -78,6 +78,14 @@
                	var tenki = "雨"
                	var caution = "視界が悪い場合があります。スリップにはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail == "light rain"){
+               	var tenki = "雨"
+               	var caution = "視界が悪い場合があります。スリップにはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else if (tenkidetail == "moderate rain"){
+               	var tenki = "雨"
+               	var caution = "視界が悪い場合があります。スリップにはご注意ください"
+               	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
                }else if (tenkidetail == "thunderstorm"){
                	var tenki = "雷雨"
                	var caution = "視界が悪い場合があります。スリップにはご注意ください"
@@ -90,6 +98,9 @@
                	var tenki = "霧"
                	var caution = "視界が悪い場合があります。スリップにはご注意ください"
                	document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。\n${caution}</p>`;
+               }else{
+               	var tenki = tenkidetail
+                document.getElementById('mydiv').innerHTML = `<p>現在のお天気は${tenki}です。</p>`;
                }
             });
 		},

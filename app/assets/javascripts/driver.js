@@ -1,3 +1,11 @@
+var request = window.superagent;
+//以下６行はテスト用
+request
+  .post("/logs")
+  .send({caution: "危険速度(一般道の場合)", ido: 34.79128922409639, keido: 135.43262141323024, detail: `50km/h`})
+  .end(function(err, res){
+  });
+//ここまで
 const utterance = new SpeechSynthesisUtterance();
 utterance.name = "Google 日本語"
 utterance.lang = "ja-JP"
@@ -97,7 +105,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	) ;
 	
 	const checkdayo = () => {
-		navigator.geolocation.watchPosition((position) => {
+		navigator.geolocation.getCurrentPosition((position) => {
 					let lat = position.coords.latitude;
 	    let lng = position.coords.longitude;
 	    let speed  = position.coords.speed;
@@ -113,7 +121,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	            data: {caution: "危険速度(一般道の場合)", ido: lat, keido: lng, detail: `${speednumber}km/h`}
 	        })
 	    }
-	    
+	       
 	       var mymap = L.map('map');
 			
            L.tileLayer(`https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png`, {
@@ -135,6 +143,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 
 
 	navigator.geolocation.watchPosition((position) => {
+	let speed  = position.coords.speed;
 	window.setTimeout(nullhantei, 5000);
     function nullhantei(){
 	    if(speed === null){
