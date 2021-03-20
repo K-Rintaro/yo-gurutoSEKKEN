@@ -95,11 +95,10 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 		}
 
 	) ;
-
-
-	navigator.geolocation.watchPosition((position) => {
-		const checkdayo = () => {
-			 let lat = position.coords.latitude;
+	
+	const checkdayo = () => {
+		navigator.geolocation.watchPosition((position) => {
+					let lat = position.coords.latitude;
 	    let lng = position.coords.longitude;
 	    let speed  = position.coords.speed;
 	    let speednumber = Math.floor(speed);
@@ -130,8 +129,12 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         <h2>現在時速 ${speednumber} km(目安)</h2>
     </div>
 	    `;
-		}
-		setInterval(checkdayo, 5000);
+		})
+	}
+	setInterval(checkdayo, 5000);
+
+
+	navigator.geolocation.watchPosition((position) => {
 	window.setTimeout(nullhantei, 5000);
     function nullhantei(){
 	    if(speed === null){
