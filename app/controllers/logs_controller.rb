@@ -1,6 +1,7 @@
 class LogsController < ApplicationController
   before_action :require_user_logged_in
   before_action :correct_user, only: [:create]
+  protect_from_forgery :except => [:create]
   def create
     @log = Log.new(log_params)
     if @log.save

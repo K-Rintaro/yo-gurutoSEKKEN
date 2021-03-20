@@ -1,4 +1,9 @@
 var request = window.superagent;
+var mymap = L.map('map');
+L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+  attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
+}).addTo(mymap);
 //以下６行はテスト用
 request
   .post("/logs")
@@ -133,11 +138,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	            data: {caution: "危険速度(一般道の場合)", ido: lat, keido: lng, detail: `${speednumber}km/h`}
 	        })
 	    }
-	       
-	    document.getElementById("map").innerHTML = 
-	    `
-        <iframe src="https://maps.google.com/maps?output=embed&q=${lat},${lng}&t=m&hl=ja&z=18" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-        `
+	    mymap.setView([lat, lng], 17);   
 	    console.log("SPEED: " + speed)
 	    document.getElementById("jisoku").innerHTML = `
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
