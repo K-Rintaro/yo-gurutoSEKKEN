@@ -127,6 +127,11 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    let lng = position.coords.longitude;
 	    let speed  = position.coords.speed;
 	    let speednumber = Math.floor(speed);
+	    document.getElementById("jisoku").innerHTML = `
+	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        <h2>現在時速 ${speednumber} km(目安)</h2>
+        </div>
+	    `;
 	    
 	    if (speed > 3){
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
@@ -138,13 +143,10 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	            data: {caution: "危険速度(一般道の場合)", ido: lat, keido: lng, detail: `${speednumber}km/h`}
 	        })
 	    }
-	    mymap.setView([lat, lng], 17);   
+	    mymap.setView([lat, lng], 17);
+	    var marker = L.marker([lat, lng]).addTo(mymap);
+        marker.bindPopup("現在地");
 	    console.log("SPEED: " + speed)
-	    document.getElementById("jisoku").innerHTML = `
-	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
-        <h2>現在時速 ${speednumber} km(目安)</h2>
-    </div>
-	    `;
 		})
 	}
 	setInterval(checkdayo, 1000);
