@@ -146,7 +146,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    `;
 		})
 	}
-	setInterval(checkdayo, 5000);
+	setInterval(checkdayo, 1000);
 
 
 	navigator.geolocation.watchPosition((position) => {
