@@ -121,6 +121,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 
 	) ;
 	
+	let marker;
 	const checkdayo = () => {
 		navigator.geolocation.getCurrentPosition((position) => {
 		let lat = position.coords.latitude;
@@ -144,12 +145,18 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	        })
 	    }
 	    mymap.setView([lat, lng], 17);
-	    var marker = L.marker([lat, lng]).addTo(mymap);
+	    marker = L.marker([lat, lng]).addTo(mymap);
         marker.bindPopup("現在地");
 	    console.log("SPEED: " + speed)
 		})
 	}
-	setInterval(checkdayo, 1000);
+	
+	const kesuyo = () => {
+		mymap.removeLayer(marker)
+	}
+	
+	setInterval(checkdayo, 5000);
+	setInterval(kesuyo, 5000)
 
 
 	navigator.geolocation.watchPosition((position) => {
