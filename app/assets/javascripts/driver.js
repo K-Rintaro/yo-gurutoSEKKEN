@@ -124,8 +124,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	) ;
 	
 	const checkdayo = () => {
-		navigator.geolocation.watchPosition((position) => {
-		mymap.removeLayer(marker)
+		navigator.geolocation.getCurrentPosition((position) => {
 		let lat = position.coords.latitude;
 	    let lng = position.coords.longitude;
 	    let speed  = position.coords.speed;
@@ -152,7 +151,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    }
 	    mymap.setView([lat, lng], 17);
 	    let marker = L.marker([lat, lng]).addTo(mymap);
-        marker.bindPopup("現在地");
 	    console.log("SPEED: " + speed)
 		})
 	}
