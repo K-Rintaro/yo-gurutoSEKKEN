@@ -165,7 +165,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 		navigator.geolocation.getCurrentPosition((position) => {
 		let lat = position.coords.latitude;
 	    let lng = position.coords.longitude;
-	    let speed  = position.coords.speed;
+	    let speedmoto  = position.coords.speed;
+	    let speed = speedmoto * 3.6
 	    let speednumber = Math.floor(speed);
 	    document.getElementById("jisoku").innerHTML = `
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">

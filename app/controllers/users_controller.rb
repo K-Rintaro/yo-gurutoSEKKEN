@@ -3,6 +3,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @logs = @user.logs.order(id: :desc).page(params[:page])
+    if @user == current_user
+        render "show"
+    else
+        redirect_to root_url
+    end
   end
 
   def new
