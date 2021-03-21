@@ -1,5 +1,19 @@
 var request = window.superagent;
 var mymap = L.map('map');
+if( storageAvailable() ){
+const key   = "speedkamo";
+const value = "0";
+
+try{
+  localStorage.setItem(key, value);
+}
+catch(e){
+  console.log(e);
+}
+}
+else{
+  alert("WebStorageが利用できないため急激な速度上昇を感知できません");
+}
 L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
@@ -135,6 +149,37 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         </div>
 	    `;
 	    
+        if( storageAvailable() ){
+        	if (!speed === null){
+        		const key = "speedkamo"
+                const value1 = localStorage.getItem(key);
+                const valuenum = Number(value1)
+                const sabun = speed - value1
+            if (sabun > 60){
+            document.getElementById( "ido" ).value = lat ;
+            document.getElementById( "keido" ).value = lng ;
+            document.getElementById( "caution" ).value = "急激な速度上昇" ;
+            document.getElementById( "detail" ).value = `差分${sabun}km/h` ;
+            document.getElementById("formdesu").submit();
+            document.getElementById( "ido" ).value = "" ;
+            document.getElementById( "keido" ).value = "" ;
+            document.getElementById( "caution" ).value = "" ;
+            document.getElementById( "detail" ).value = "" ;
+            var jyoushou = `急激な速度上昇を感知しました。差分は時速${sabun}キロメートルです。高速道路の場合はこの限りではありません。`
+                utterance.text = jyoushou;
+               	speechSynthesis.speak(utterance);
+        	}}}
+        	
+        	const key   = "speedkamo";
+            const value = speed;
+
+            try{
+                localStorage.setItem(key, value);
+            }
+            catch(e){
+                console.log(e);
+            }
+	    
 	    if (speed > 3){
 	    	document.getElementById( "ido" ).value = lat ;
             document.getElementById( "keido" ).value = lng ;
@@ -155,7 +200,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 		})
 	}
 	
-	setInterval(checkdayo, 2000);
+	setInterval(checkdayo, 1000);
 
 
 	navigator.geolocation.watchPosition((position) => {
