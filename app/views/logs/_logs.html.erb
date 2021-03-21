@@ -1,7 +1,7 @@
 <div class="card-body">
     <% logs.each do |log| %>
         <h5 class="card-title">
-        <p>・<%= log.created_at.to_s(:datetime_jp) %>に<%= log.caution %>を検知(<%= log.detail %>)</p
+        <p>・<%= log.created_at.to_s(:datetime_jp) %>に<%= log.caution %>を検知(<%= log.detail %>)</p>
         </h5>
         <p>本警告は一般道利用時を想定しております。高速道路の場合は上記の通りではありませんので以下マップで警告時の位置をご確認ください</p>
         <iframe src="https://maps.google.com/maps?output=embed&q=<%= log.ido %>,<%= log.keido %>&t=m&hl=ja&z=18" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen=""></iframe>

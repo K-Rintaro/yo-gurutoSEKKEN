@@ -1,12 +1,12 @@
 <div class="ue">
-	<h1><%= @user.name %>様の運転情報</h3>
+	<h1><%= @user.name %>様の運転情報</h1>
 </div>
 <div class="card">
   <div class="card-header">
     位置情報に基づく天候情報
   </div>
   <div class="card-body">
-    <h5 class="card-title"><div id="mydiv"><p>現在天候情報を取得中です... 瞬くお待ちください</p></div></h5>
+    <div id="mydiv"><p>現在天候情報を取得中です... 瞬くお待ちください</p></div>
   </div>
 </div>
 <div class="aida">
@@ -17,14 +17,6 @@
   <%= render 'logs/logs', logs: @logs %>
 </div>
 </div>
-<style>
-	.aida {
-		margin-top: 2cm ;
-	}
-	.ue {
-		margin-bottom: 1cm ;
-	}
-</style>
 <script>
    let userid =  <%= @user.id %>
    if( navigator.geolocation )
@@ -113,7 +105,7 @@
 				"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
 			] ;
 			var errorNo = error.code ;
-			var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
+			var errorMessage = errorInfo[ errorNo ] ;
 			alert( errorMessage ) ;
 			document.getElementById("result").innerHTML = errorMessage;
 		} ,
@@ -135,3 +127,11 @@ else
 	document.getElementById( 'result' ).innerHTML = errorMessage ;
 }
 </script>
+<style>
+	.aida {
+		margin-top: 2cm ;
+	}
+	.ue {
+		margin-bottom: 1cm ;
+	}
+</style>

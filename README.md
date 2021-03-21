@@ -1,24 +1,15 @@
-# README
+# yo-gurutoSEKKEN
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+yo-gurutoSEKKEN is the supporting application for elderly car drivers.
 
-Things you may want to cover:
+Please visit → https://yo-gurutosekken.herokuapp.com (URL will be changed soon)
 
-* Ruby version
+## Features 
+* 🚨if the speed is over 70km/h, show alert and speak alert information. 
+* 🚨if the speed is over 60km/h in a second, show alert and speak alert information.
+* 📝 show alert history.
+* 🗺 show current location on map.
 
-* System dependencies
+## Devices that I recommend 
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Later 2015 Android, iPhone or other devices that has GPS.

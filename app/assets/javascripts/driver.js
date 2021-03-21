@@ -148,7 +148,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 				"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
 			] ;
 			var errorNo = error.code ;
-			var errorMessage = "エラー番号:" + errorNo + errorInfo[ errorNo ] ;
+			var errorMessage = errorInfo[ errorNo ] ;
 			utterance.text = errorMessage;
 			speechSynthesis.speak(utterance);
 		} ,
