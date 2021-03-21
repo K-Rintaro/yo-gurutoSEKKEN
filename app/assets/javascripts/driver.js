@@ -19,10 +19,11 @@ document.getElementById("tenkibutton").onclick = function() {
 document.getElementById('hyouji').innerHTML = `<h1>運転サポートモードON</h1>`
 document.getElementById('onoff').innerHTML = `<button type="button" class="btn btn-danger" id="offbutton">運転支援を終了する</button>`
   if( navigator.geolocation ){
+  	let marker;
 	navigator.geolocation.getCurrentPosition(
 
-		function( position )
-		{
+       
+	function( position ){
 		  var yomiage = `運転支援モードがオンになりました。運転支援を開始します`
       utterance.text = yomiage;
       speechSynthesis.speak(utterance);
@@ -32,6 +33,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 			var lng = data.longitude ;
 			var alt = data.altitude ;
 			console.log(lat,lng)
+			marker = L.marker([lat, lng]).addTo(mymap);
 			
            
            async function postData(url = '', data = {}) {
@@ -121,9 +123,9 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 
 	) ;
 	
-	let marker;
 	const checkdayo = () => {
-		navigator.geolocation.getCurrentPosition((position) => {
+		navigator.geolocation.watchPosition((position) => {
+		mymap.removeLayer(marker)
 		let lat = position.coords.latitude;
 	    let lng = position.coords.longitude;
 	    let speed  = position.coords.speed;
@@ -135,28 +137,27 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    `;
 	    
 	    if (speed > 3){
+	    	document.getElementById( "ido" ).value = lat ;
+            document.getElementById( "keido" ).value = lng ;
+            document.getElementById( "caution" ).value = "危険速度" ;
+            document.getElementById( "detail" ).value = `${speednumber}km/h` ;
+            document.getElementById("formdesu").submit();
+            document.getElementById( "ido" ).value = "" ;
+            document.getElementById( "keido" ).value = "" ;
+            document.getElementById( "caution" ).value = "" ;
+            document.getElementById( "detail" ).value = "" ;
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                	utterance.text = sokudochoukadayo;
                	speechSynthesis.speak(utterance);
-	        $.ajax({
-	            url: urldesuu,
-	            type: "POST",
-	            data: {caution: "危険速度(一般道の場合)", ido: lat, keido: lng, detail: `${speednumber}km/h`}
-	        })
 	    }
 	    mymap.setView([lat, lng], 17);
-	    marker = L.marker([lat, lng]).addTo(mymap);
+	    let marker = L.marker([lat, lng]).addTo(mymap);
         marker.bindPopup("現在地");
 	    console.log("SPEED: " + speed)
 		})
 	}
 	
-	const kesuyo = () => {
-		mymap.removeLayer(marker)
-	}
-	
-	setInterval(checkdayo, 5000);
-	setInterval(kesuyo, 5000)
+	setInterval(checkdayo, 3000);
 
 
 	navigator.geolocation.watchPosition((position) => {

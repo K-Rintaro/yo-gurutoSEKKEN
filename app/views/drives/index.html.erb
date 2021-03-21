@@ -1,3 +1,23 @@
+    <%= form_with(model: @log, local: true, id: "formdesu") do |f| %>
+      
+      <div class="form-group">
+        <%= f.text_field :ido, type: 'hidden'  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.text_field :keido, type: 'hidden' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.text_field :caution, type: 'hidden' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.text_field :detail, type: 'hidden' %>
+      </div>
+
+      <%= f.submit '', type: 'hidden' %>
+    <% end %>
 <div class="matomerukun">
     <div class="hyouji" id="hyouji">
     <h1>運転サポートモードOFF</h1>
