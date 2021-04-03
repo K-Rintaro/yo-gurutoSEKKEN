@@ -1,36 +1,7 @@
 <!DOCTYPE html>
 <html  lang="ja">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Yo-gututo Sekken</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-
-    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
-  </head>
-
-  <body>
-    <%= render 'layouts/navbar' %>
-
-    <div class="container">
-      <%= render 'layouts/flash_messages' %>
-
-      <%= yield %>
-    </div>
-
-    <%= render 'layouts/chosakuken' %>
-    </div>
-  </body>
-  
-  <style>
+      <style>
 	.aida {
 		margin-top: 2cm ;
 	}
@@ -70,4 +41,32 @@
         margin-bottom:0cm;
     }
 </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Yo-gututo Sekken</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+  </head>
+
+  <body>
+    <%= render 'layouts/navbar' %>
+
+    <div class="container">
+      <%= render 'layouts/flash_messages' %>
+
+      <%= yield %>
+    </div>
+
+    <%= render 'layouts/chosakuken' %>
+    </div>
+  </body>
 </html>
