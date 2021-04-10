@@ -6,7 +6,7 @@
     <li class="breadcrumb-item active" aria-current="page">Yo-gurutoSEKKENは昨今社会的課題となっている交通事故問題を解決する一つの手法として開発されました</li>
   </ol>
 </nav>
-<%= image_tag 'topyou.png', class: "img-fluid" %>
+<%= image_tag 'topyou.png', class: "img-fluid", :alt => 'Flower Photo' %>
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-6">
@@ -47,15 +47,6 @@
         </div>
     </div>
 </div>
-<style>
-    .card{
-        margin-bottom: 1cm;
-    }
-    img {
-        border: solid 1px black;
-        margin-bottom:1cm;
-    }
-</style>
 <% else %>
 <h1 class="display-4">Yo-gututoSEKKENは高齢のドライバーの方のための運転支援アプリケーションです</h1>
 <nav aria-label="breadcrumb" class="text-center">
@@ -64,7 +55,7 @@
   </ol>
 </nav>
 　<%= link_to 'SIGN UP NOW!', signup_path, class: 'btn btn-lg btn-primary' %>
-<%= image_tag 'topyou.png', class: "img-fluid" %>
+<%= image_tag 'topyou.png', class: "img-fluid", :alt => 'Flower Photo' %>
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-6">
@@ -105,13 +96,4 @@
         </div>
     </div>
 </div>
-<style>
-    .card{
-        margin-bottom: 1cm;
-    }
-    img {
-        border: solid 1px black;
-        margin-bottom:1cm;
-    }
-</style>
 <% end %>
