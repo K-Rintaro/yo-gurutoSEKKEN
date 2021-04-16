@@ -42,13 +42,7 @@ L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
   maxZoom: 18,
   attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
 }).addTo(mymap);
-//以下６行はテスト用
-request
-  .post("/logs")
-  .send({caution: "危険速度(一般道の場合)", ido: 34.79128922409639, keido: 135.43262141323024, detail: `50km/h`})
-  .end(function(err, res){
-  });
-//ここまで
+
 const utterance = new SpeechSynthesisUtterance();
 utterance.name = "Google 日本語"
 utterance.lang = "ja-JP"
@@ -173,7 +167,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         <h2>現在時速 ${speednumber} km(目安)</h2>
         </div>
 	    `;
-	    
         if( storageAvailable('localStorage') ){
         	if (!speed === null){
         		const key = "speedkamo"
@@ -215,9 +208,24 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             document.getElementById( "keido" ).value = "" ;
             document.getElementById( "caution" ).value = "" ;
             document.getElementById( "detail" ).value = "" ;
+            document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" class="img-fluid" alt="Responsive image">`
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                	utterance.text = sokudochoukadayo;
                	speechSynthesis.speak(utterance);
+           async function postData(url = '', data = {}) {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h` }) 
+               })
+               return response.json();
+            }
+           postData('https://foryo-gurutosekken.herokuapp.com/discord')
+           .then(data => {
+               console.log(data);
+            });
 	    }
 	    mymap.setView([lat, lng], 17);
 	    let marker = L.marker([lat, lng]).addTo(mymap);
