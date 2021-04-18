@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   get 'authorize', to: 'users#hello'
   
   resources :logs, only: [:create]
-  resources :users, only: [:show, :create, :update]
+  resources :users, only: [:show, :create, :update, :edit]
 end
