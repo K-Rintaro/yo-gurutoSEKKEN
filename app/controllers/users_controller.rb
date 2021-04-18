@@ -30,10 +30,10 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success] = 'Discordは正常に連携されました'
-      redirect_to @user
+      redirect_to user_path
     else
       flash.now[:danger] = 'Discordは連携されませんでした'
-      render :edit
+      redirect_to root_url
     end
   end
 
