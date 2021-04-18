@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:show, :destroy]
+  before_action :require_user_logged_in, only: [:show, :destroy, :edit]
   def show
     @user = User.find(params[:id])
     @logs = @user.logs.order(id: :desc).page(params[:page])
@@ -11,10 +11,20 @@ class UsersController < ApplicationController
   end
   
   def edit
+    @user = User.find(params[:id])
+    if @user == current_user
+        render "edit"
+    else
+      redirect_to root_url
+    end
   end
 
   def new
     @user = User.new
+  end
+  
+  def hello
+    @hello = request.query_string
   end
 
   def create
