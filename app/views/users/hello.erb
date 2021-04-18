@@ -1,3 +1,15 @@
+    <%= form_with(model: @user, local: true, id: "formdesu") do |f| %>
+      
+      <div class="form-group">
+        <%= f.text_field :discordid, type: 'hidden'  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.text_field :discordname, type: 'hidden' %>
+      </div>
+
+      <%= f.submit '', type: 'hidden' %>
+    <% end %>
 <h1>Discord連携処理中です...</h1>
 <p>現在Discordとの連携処理を行っています。これにはしばらく時間がかる場合があります</p>
 <p>処理完了後は自動的にリダイレクトされますのでこのままでお待ちください</p>
@@ -18,5 +30,10 @@
            postData('https://foryo-gurutosekken.herokuapp.com/authorize')
            .then(data => {
              console.log(data)
+            document.getElementById( "discordid" ).value = data.id ;
+            document.getElementById( "discordname" ).value = data.username + "#" + data.discriminator ;
+            document.getElementById("formdesu").submit();
+            document.getElementById( "discordid" ).value = "" ;
+            document.getElementById( "discordname" ).value = "" ;
            })
 </script>

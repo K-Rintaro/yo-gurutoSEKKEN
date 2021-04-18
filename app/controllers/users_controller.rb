@@ -26,6 +26,16 @@ class UsersController < ApplicationController
   def hello
     @hello = request.query_string
   end
+  
+  def update
+    if @user.update(user_params)
+      flash[:success] = 'Discordは正常に連携されました'
+      redirect_to @user
+    else
+      flash.now[:danger] = 'Discordは連携されませんでした'
+      render :edit
+    end
+  end
 
   def create
     @user = User.new(user_params)
@@ -42,7 +52,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :discordid, :discordname)
   end
   
 end

@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   get 'drives', to: 'drives#index'
   post 'drives', to: 'logs#create'
+  post 'authorize', to: 'users#update'
   get 'authorize', to: 'users#hello'
   
   resources :logs, only: [:create]
-  resources :users, only: [:show, :create, :edit]
+  resources :users, only: [:show, :create, :update]
 end
