@@ -1,0 +1,12 @@
+    <%= form_with(model: @user, local: true, id: "formdesu") do |f| %>
+      
+      <div class="form-group">
+        <%= f.text_field :discordid, type: 'hidden'  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.text_field :discordname, type: 'hidden' %>
+      </div>
+
+      <%= f.submit '', type: 'hidden' %>
+    <% end %>

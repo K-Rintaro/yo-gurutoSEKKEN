@@ -1,0 +1,22 @@
+<h1>Discord連携処理中です...</h1>
+<p>現在Discordとの連携処理を行っています。これにはしばらく時間がかる場合があります</p>
+<p>処理完了後は自動的にリダイレクトされますのでこのままでお待ちください</p>
+<script>
+  const urls = "<%= @hello %>"
+  const main = urls.slice(5)
+  const postman = {seek: main}
+           async function postData(url = '', data = {}) {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify(postman) 
+               })
+               return response.json();
+            }
+           postData('https://foryo-gurutosekken.herokuapp.com/authorize')
+           .then(data => {
+             console.log(data)
+           })
+</script>

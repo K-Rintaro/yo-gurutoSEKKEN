@@ -1,26 +1,48 @@
-<div id="info">
-	Hoi!
+<h1>Discord連携設定ページ</h1>
+<p>ここでは警告履歴をチャットアプリ「Discord」と連携させるための設定を行います</p>
+<p>連携を行うことで危険速度を感知した際に本アプリだけでなくDiscord側にもリアルタイムで通知することができます。</p>
+
+<div class="shadow-lg p-3 mb-5 bg-white rounded">
+  <h3>設定方法</h3>
+  <p>1. Discordアカウントをお持ちでない方は discord.com からDiscordアカウントを作成してください</p>
+  <p>2. 下のボタンからyo-gurutoSEKKEN公式サーバーに参加しDiscord側の設定を行ってください</p>
+  <button type="button" class="btn btn-primary" onClick="window.open('https://discord.gg/SuF2v5uQMc', '_blank')">設定する</button>
+  <p>3. 下のボタンから連携できます(必ず2.が完了した上で行ってください)</p>
+  <button type="button" class="btn btn-primary" onClick="location.href='https://discord.com/oauth2/authorize?client_id=830681933637353523&scope=identify&response_type=code&callback_uri=https%3A%2F%2F12bf7f3d72af42a2a561eadd331539dc.vfs.cloud9.us-east-2.amazonaws.com%2Fauthorize'">連携する</button>
 </div>
-<a id="login" style="display: none;" href="your-oauth2-url-here">Identify Yourself</a>
-<script>
-	window.onload = () => {
-		const fragment = new URLSearchParams(window.location.hash.slice(1));
-		const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
-
-		if (!accessToken) {
-			return document.getElementById('login').style.display = 'block';
-		}
-
-		fetch('https://discord.com/api/users/@me', {
-			headers: {
-				authorization: `${tokenType} ${accessToken}`
-			}
-		})
-			.then(result => result.json())
-			.then(response => {
-				const { username, discriminator } = response;
-				document.getElementById('info').innerText += ` ${username}#${discriminator}`;
-			})
-			.catch(console.error);
-	};
-</script>
+<% if @user.discordid.nil? %>
+<div class="card">
+  <div class="card-header">
+    連携中のDiscord ユーザー名
+  </div>
+  <div class="card-body">
+    <p>連携中のユーザーがありません。</p>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    連携中のDiscord ID
+  </div>
+  <div class="card-body">
+    <p>連携中のユーザーがありません。</p>
+  </div>
+</div>
+<button></button>
+<% else %>
+<div class="card">
+  <div class="card-header">
+    連携中のDiscord ユーザー名
+  </div>
+  <div class="card-body">
+    <p><% @user.discordname %></p>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    連携中のDiscord ID
+  </div>
+  <div class="card-body">
+    <p><% @user.discordid %></p>
+  </div>
+</div>
+<% end %>
