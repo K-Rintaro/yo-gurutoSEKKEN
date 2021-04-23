@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:show, :destroy, :edit]
+  before_action :require_user_logged_in, only: [:show, :destroy, :edit, :update, :hello, :edit]
   def show
     @user = User.find(params[:id])
     @logs = @user.logs.order(id: :desc).page(params[:page])
@@ -24,16 +24,21 @@ class UsersController < ApplicationController
   end
   
   def hello
-    @hello = request.query_string
+    require 'uri'
+    uri = URI::parse(request.url)
+    q_array = URI::decode_www_form(uri.query)
+    hashdesu = Hash[q_array]
+    @hello = hashdesu["code"]
   end
   
   def update
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = 'Discordは正常に連携されました'
-      redirect_to user_path
+      flash[:success] = 'Slackは正常に連携されました'
+      redirect_to @user
     else
-      flash.now[:danger] = 'Discordは連携されませんでした'
-      redirect_to root_url
+      flash.now[:danger] = 'Slackは連携されませんでした'
+      redirect_to @user
     end
   end
 
@@ -52,7 +57,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :discordid, :discordname)
+    params.permit(:name, :email, :password, :password_confirmation, :discordid, :discordname)
   end
   
 end

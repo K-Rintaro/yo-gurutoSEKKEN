@@ -39,6 +39,9 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
  <div id="map" class="map"></div>
+ <script>
+ const notifyto = "<%= @user.discordid %>"
+</script>
 <%= javascript_include_tag "superagent.js" %>
 <%= javascript_include_tag "driver.js" %>
 </div>

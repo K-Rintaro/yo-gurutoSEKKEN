@@ -1,19 +1,21 @@
-<h1>Discord連携設定ページ</h1>
-<p>ここでは警告履歴をチャットアプリ「Discord」と連携させるための設定を行います</p>
-<p>連携を行うことで危険速度を感知した際に本アプリだけでなくDiscord側にもリアルタイムで通知することができます。</p>
+<h1>Slack連携設定ページ</h1>
+<p>ここでは警告履歴をSlackと連携させるための設定を行います</p>
+<p>連携を行うことで危険速度を感知した際に本アプリだけでなくSlack側にもリアルタイムで通知することができます。</p>
 
 <div class="shadow-lg p-3 mb-5 bg-white rounded">
   <h3>設定方法</h3>
-  <p>1. Discordアカウントをお持ちでない方は discord.com からDiscordアカウントを作成してください</p>
-  <p>2. 下のボタンからyo-gurutoSEKKEN公式サーバーに参加しDiscord側の設定を行ってください</p>
-  <button type="button" class="btn btn-primary" onClick="window.open('https://discord.gg/SuF2v5uQMc', '_blank')">設定する</button>
-  <p>3. 下のボタンから連携できます(必ず2.が完了した上で行ってください)</p>
-  <button type="button" class="btn btn-primary" onClick="location.href='https://discord.com/oauth2/authorize?client_id=830681933637353523&scope=identify&response_type=code&callback_uri=https%3A%2F%2F12bf7f3d72af42a2a561eadd331539dc.vfs.cloud9.us-east-2.amazonaws.com%2Fauthorize'">連携する</button>
+  <p>1. 下のボタンからyo-gurutoSEKKEN Slackサポートサーバにご参加ください</p>
+  <button type="button" class="btn btn-primary" onClick="window.open('https://join.slack.com/t/yogurutosekke-mji9868/shared_invite/zt-p85dr1cy-lhh76YaExsFzXAPYb5jhoA', '_blank')">参加する</button>
+  <p>3. 下のボタンから連携できます(必ず1.が完了した上で行ってください)</p>
+  <button type="button" class="btn btn-primary" onClick="location.href='https://yogurutosekke-mji9868.slack.com/oauth?client_id=1976843639858.1977113766595&scope=identify&user_scope=&redirect_uri=https://12bf7f3d72af42a2a561eadd331539dc.vfs.cloud9.us-east-2.amazonaws.com/authorize&state=&granular_bot_scope=0&single_channel=0&install_redirect=&tracked=1&team='">連携する</button>
 </div>
+<script>
+    document.cookie = "cookieuserid=<%= @user.id %>";
+</script>
 <% if @user.discordid.nil? %>
 <div class="card">
   <div class="card-header">
-    連携中のDiscord ユーザー名
+    連携中のSlack ユーザー名
   </div>
   <div class="card-body">
     <p>連携中のユーザーがありません。</p>
@@ -21,28 +23,27 @@
 </div>
 <div class="card">
   <div class="card-header">
-    連携中のDiscord ID
+    連携中のSlack ID
   </div>
   <div class="card-body">
     <p>連携中のユーザーがありません。</p>
   </div>
 </div>
-<button></button>
 <% else %>
 <div class="card">
   <div class="card-header">
-    連携中のDiscord ユーザー名
+    連携中のSlackユーザー名
   </div>
   <div class="card-body">
-    <p><% @user.discordname %></p>
+    <p><%= @user.discordname %></p>
   </div>
 </div>
 <div class="card">
   <div class="card-header">
-    連携中のDiscord ID
+    連携中のSlack ID
   </div>
   <div class="card-body">
-    <p><% @user.discordid %></p>
+    <p><%= @user.discordid %></p>
   </div>
 </div>
 <% end %>

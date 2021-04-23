@@ -218,11 +218,11 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h` }) 
+                body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h`, to: notifyto }) 
                })
                return response.json();
             }
-           postData('https://foryo-gurutosekken.herokuapp.com/discord')
+           postData('https://foryo-gurutosekken.herokuapp.com/slacker')
            .then(data => {
                console.log(data);
             });

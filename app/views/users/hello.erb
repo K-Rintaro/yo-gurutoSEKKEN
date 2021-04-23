@@ -1,4 +1,7 @@
     <%= form_with(model: @user, local: true, id: "formdesu") do |f| %>
+      <div class="form-group">
+        <%= f.text_field :id, type: 'hidden'  %>
+      </div>
       
       <div class="form-group">
         <%= f.text_field :discordid, type: 'hidden'  %>
@@ -10,29 +13,33 @@
 
       <%= f.submit '', type: 'hidden' %>
     <% end %>
-<h1>Discord連携処理中です...</h1>
-<p>現在Discordとの連携処理を行っています。これにはしばらく時間がかる場合があります</p>
+<h1>Slack連携処理中です...</h1>
+<p>現在Slackとの連携処理を行っています。これにはしばらく時間がかる場合があります</p>
 <p>処理完了後は自動的にリダイレクトされますのでこのままでお待ちください</p>
 <script>
-  const urls = "<%= @hello %>"
-  const main = urls.slice(5)
-  const postman = {seek: main}
-           async function postData(url = '', data = {}) {
+ const moto = "<%= @hello %>"
+ const cookieValue = document.cookie.split('; ').find(row => row.startsWith('cookieuserid')).split('=')[1];
+             async function postData(url = '', data = {}) {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                body: JSON.stringify(postman) 
+                body: JSON.stringify({ code: moto}) 
                })
                return response.json();
             }
-           postData('https://foryo-gurutosekken.herokuapp.com/authorize')
+           postData('https://foryo-gurutosekken.herokuapp.com/auth')
            .then(data => {
              console.log(data)
-            document.getElementById( "discordid" ).value = data.id ;
-            document.getElementById( "discordname" ).value = data.username + "#" + data.discriminator ;
+             const username = data.user;
+             const userid = data.user_id;
+             
+            document.getElementById("id").value = cookieValue;
+            document.getElementById( "discordid" ).value = userid ;
+            document.getElementById( "discordname" ).value = username ;
             document.getElementById("formdesu").submit();
+            document.getElementById("id").value = "";
             document.getElementById( "discordid" ).value = "" ;
             document.getElementById( "discordname" ).value = "" ;
            })
