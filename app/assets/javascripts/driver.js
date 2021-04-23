@@ -199,6 +199,20 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             }
 	    
 	    if (speed > 2){
+	       async function postData(url = '', data = {}) {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h`, to: notifyto }) 
+               })
+               return response.json();
+            }
+           postData('https://foryo-gurutosekken.herokuapp.com/slacker')
+           .then(data => {
+               console.log(data);
+           });
 	    	document.getElementById( "ido" ).value = lat ;
             document.getElementById( "keido" ).value = lng ;
             document.getElementById( "caution" ).value = "危険速度" ;
@@ -212,20 +226,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                	utterance.text = sokudochoukadayo;
                	speechSynthesis.speak(utterance);
-           async function postData(url = '', data = {}) {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h`, to: notifyto }) 
-               })
-               return response.json();
-            }
-           postData('https://foryo-gurutosekken.herokuapp.com/slacker')
-           .then(data => {
-               console.log(data);
-            });
 	    }
 	    mymap.setView([lat, lng], 17);
 	    let marker = L.marker([lat, lng]).addTo(mymap);
