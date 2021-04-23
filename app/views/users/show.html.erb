@@ -17,6 +17,7 @@
   <%= render 'logs/logs', logs: @logs %>
 <script>
    let userid =  <%= @user.id %>
+   document.cookie = "cookieuserid=<%= @user.id %>";
    if( navigator.geolocation )
 {
 
