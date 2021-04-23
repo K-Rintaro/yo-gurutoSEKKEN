@@ -40,7 +40,11 @@
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
  <div id="map" class="map"></div>
  <script>
+ <% if @user.discordid.nil? %>
+ const notifyto = "qqq"
+ <% else %>
  const notifyto = "<%= @user.discordid %>"
+ <% end %>
 </script>
 <%= javascript_include_tag "superagent.js" %>
 <%= javascript_include_tag "driver.js" %>
