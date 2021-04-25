@@ -227,7 +227,9 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
            postData('https://foryo-gurutosekken.herokuapp.com/slacker')
            .then(data => {
                console.log(data)
-               	        document.getElementById( "ido" ).value = lat ;
+           })
+           setTimeout(function(){
+                           document.getElementById( "ido" ).value = lat ;
             document.getElementById( "keido" ).value = lng ;
             document.getElementById( "caution" ).value = "危険速度" ;
             document.getElementById( "detail" ).value = `${speednumber}km/h` ;
@@ -240,7 +242,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	           	var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                	utterance.text = sokudochoukadayo;
                	speechSynthesis.speak(utterance);
-           })
+            }, 3000);
 	       }
 	    }
 	    mymap.setView([lat, lng], 17);
