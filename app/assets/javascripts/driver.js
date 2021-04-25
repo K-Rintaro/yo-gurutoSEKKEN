@@ -198,7 +198,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                 console.log(e);
             }
 	    
-	    if (speed > 2){
+	    if (speed > 70){
 	       if (notifyto === "qqq"){
             document.getElementById( "ido" ).value = lat ;
             document.getElementById( "keido" ).value = lng ;
