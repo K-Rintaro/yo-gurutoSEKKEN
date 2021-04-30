@@ -21,7 +21,6 @@
   </div>
 <script>
    let userid =  <%= @user.id %>
-   document.cookie = "cookieuserid=<%= @user.id %>";
    if( navigator.geolocation )
 {
 
@@ -129,4 +128,5 @@ else
 
 	document.getElementById( 'result' ).innerHTML = errorMessage ;
 }
+document.cookie = "cookieuserid=<%= @user.id %>";
 </script>
