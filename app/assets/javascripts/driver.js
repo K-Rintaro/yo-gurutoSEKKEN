@@ -43,7 +43,7 @@ L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
   attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
 }).addTo(mymap);
 
-const utterance = new SpeechSynthesisUtterance();
+var utterance = new SpeechSynthesisUtterance();
 utterance.name = "Google 日本語"
 utterance.lang = "ja-JP"
 utterance.rate = 0.7
