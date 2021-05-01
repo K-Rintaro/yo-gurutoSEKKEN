@@ -41,9 +41,9 @@
  <div id="map" class="map"></div>
  <script>
  <% if @user.discordid.nil? %>
- const notifyto = "qqq"
+ var notifyto = "qqq"
  <% else %>
- const notifyto = "<%= @user.discordid %>"
+ var notifyto = "<%= @user.discordid %>"
  <% end %>
 </script>
 <%= javascript_include_tag "superagent.js" %>
