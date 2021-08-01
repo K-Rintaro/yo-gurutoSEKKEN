@@ -2,7 +2,7 @@
 
 yo-gurutoSEKKEN is the supporting application for elderly car drivers.
 
-Please visit → https://yo-gurutosekken.herokuapp.com (URL will be changed soon)
+DEMO Page → https://yo-gurutosekken.herokuapp.com
 
 ## Features 
 * 🚨if the speed is over 70km/h, show alert and speak alert information. 
