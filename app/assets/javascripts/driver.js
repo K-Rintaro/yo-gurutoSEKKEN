@@ -78,7 +78,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                })
                return response.json();
             }
-           postData('https://foryo-gurutosekken.herokuapp.com/')
+           postData('https://foryo-guruto.herokuapp.com/')
            .then(data => {
                console.log(data);
                var tenkidetail = data[1]
@@ -224,7 +224,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                })
                return response.json();
             }
-           postData('https://foryo-gurutosekken.herokuapp.com/slacker')
+           postData('https://foryo-guruto.herokuapp.com/slacker')
            .then(data => {
                console.log(data)
            })
