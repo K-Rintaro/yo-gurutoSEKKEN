@@ -3,45 +3,42 @@
 </div>
 <div id="privacy"></div>
 <script>
-var cookies = document.cookie;
-var cookiesArray = cookies.split(';');
+var cookies = document.cookie; //全てのcookieを取り出して
+var cookiesArray = cookies.split(';'); // ;で分割し配列に
 
-for(var c of cookiesArray){ 
-    var cArray = c.split('=');
-	console.log(cArray[0]);
-    if( cArray[0] == 'privacy'){ 
-        if(cArray[1].includes('1')){
-            privacyone = "感知した危険運転の種類 ";
-            console.log("aaa");
-        }else{
-            privacy = "";
-        }
-        var privacytwo;
-        if(cArray[1].includes('2')){
-            privacytwo = "危険運転の感知時刻 ";
-        }else{
-            privacytwo = "";
-        }
-        var privacythree;
-        if(cArray[1].includes('3')){
-            privacythree = "危険運転の感知場所・地図 ";
-        }else{
-            privacythree = "";
-        }
-        document.getElementById('privacy').innerHTML = "<p>［プライバシー情報］ご家族と共有される情報の共有範囲が指定されています。共有する情報: " + privacyone + privacytwo + privacythree;
+if(!getCookieValue('privacy')){
+    document.getElementById('privacy').innerHTML = `
+    <h2>プライバシー情報</h2>
+    <h4>ご家族と共有される情報の種類を設定してください。</h4>
+    <p>Yo-gurutoSekkenはあなたのプライバシーを保護し、あなたが共有したくない情報は他の人とは一切共有しません。</p>
+    <b>共有する情報</b>
+    <input type="checkbox" class="privacy" name="privacy" value="1">感知した危険運転の種類
+    <input type="checkbox" class="privacy" name="privacy" value="2">危険運転の感知時刻
+    <input type="checkbox" class="privacy" name="privacy" value="3">危険運転の感知場所・地図
+    <button onclick="getValue()">決定</button>
+    `;
+}else{
+    var privacyone;
+    if(getCookieValue('privacy').includes('1')){
+        privacyone = "感知した危険運転の種類 ";
     }else{
-        document.getElementById('privacy').innerHTML = `
-        <h2>プライバシー情報</h2>
-        <h4>ご家族と共有される情報の種類を設定してください。</h4>
-        <p>Yo-gurutoSekkenはあなたのプライバシーを保護し、あなたが共有したくない情報は他の人とは一切共有しません。</p>
-        <b>共有する情報</b>
-        <input type="checkbox" class="privacy" name="privacy" value="1">感知した危険運転の種類
-        <input type="checkbox" class="privacy" name="privacy" value="2">危険運転の感知時刻
-        <input type="checkbox" class="privacy" name="privacy" value="3">危険運転の感知場所・地図
-        <button onclick="getValue()">決定</button>
-        `;
+        privacy = "";
     }
+    var privacytwo;
+    if(getCookieValue('privacy').includes('2')){
+        privacytwo = "危険運転の感知時刻 ";
+    }else{
+        privacytwo = "";
+    }
+    var privacythree;
+    if(getCookieValue('privacy').includes('3')){
+        privacythree = "危険運転の感知場所・地図 ";
+    }else{
+        privacythree = "";
+    }
+    document.getElementById('privacy').innerHTML = "<p>［プライバシー情報］ご家族と共有される情報の共有範囲が指定されています。共有する情報: " + privacyone + privacytwo + privacythree;
 }
+
 
 function getValue() {
     var privacy = document.getElementsByClassName('privacy');
@@ -52,9 +49,19 @@ function getValue() {
         }
     }
     alert(str);
-    document.cookie = "privacy=" + str;
-} 
+    document.cookie = `privacy=${str}`;
+}
 
+function getCookieValue(key) {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        var cookiesArray = cookie.split('='); 
+        if (cookiesArray[0].trim() == key.trim()) { 
+            return cookiesArray[1];  // (key[0],value[1])
+        }
+    }
+    return '';
+}
 </script>
 
 <div class="card">
