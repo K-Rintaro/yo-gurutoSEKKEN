@@ -8,6 +8,7 @@ var cookiesArray = cookies.split(';');
 
 for(var c of cookiesArray){ 
     var cArray = c.split('=');
+	console.log(cArray[0]);
     if( cArray[0] == 'privacy'){ 
         if(cArray[1].includes('1')){
             privacyone = "感知した危険運転の種類 ";
@@ -51,9 +52,11 @@ function getValue() {
         }
     }
     alert(str);
-    document.cookie = `privacy=${str}`;
-}
+    document.cookie = "privacy=" + str;
+} 
+
 </script>
+
 <div class="card">
   <div class="card-header">
     位置情報に基づく天候情報
