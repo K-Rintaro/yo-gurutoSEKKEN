@@ -10,7 +10,7 @@ if(!getCookieValue('privacy')){
     document.getElementById('privacy').innerHTML = `
     <h2>プライバシー情報</h2>
     <h4>ご家族と共有される情報の種類を設定してください。</h4>
-    <p>Yo-gurutoSekkenはあなたのプライバシーを保護し、あなたが共有したくない情報は他の人とは一切共有しません。</p>
+    <p>Yo-gurutoSekkenはあなたのプライバシーを保護し、あなたが共有したくない情報は他の人とも一切共有しません。</p>
     <b>共有する情報</b>
     <input type="checkbox" class="privacy" name="privacy" value="1">感知した危険運転の種類
     <input type="checkbox" class="privacy" name="privacy" value="2">危険運転の感知時刻
@@ -48,8 +48,9 @@ function getValue() {
             str += privacy[i].value + " ";
         }
     }
-    alert(str);
+    alert("プライバシーの設定が完了しました。指定された情報以外は誰とも共有されません。");
     document.cookie = `privacy=${str}`;
+	location.reload()
 }
 
 function getCookieValue(key) {
