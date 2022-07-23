@@ -1,6 +1,59 @@
 <div class="ue">
 	<h1><%= @user.name %>様の運転情報</h1>
 </div>
+<div id="privacy"></div>
+<script>
+var cookies = document.cookie;
+var cookiesArray = cookies.split(';');
+
+for(var c of cookiesArray){ 
+    var cArray = c.split('=');
+    if( cArray[0] == 'privacy'){ 
+        if(cArray[1].includes('1')){
+            privacyone = "感知した危険運転の種類 ";
+            console.log("aaa");
+        }else{
+            privacy = "";
+        }
+        var privacytwo;
+        if(cArray[1].includes('2')){
+            privacytwo = "危険運転の感知時刻 ";
+        }else{
+            privacytwo = "";
+        }
+        var privacythree;
+        if(cArray[1].includes('3')){
+            privacythree = "危険運転の感知場所・地図 ";
+        }else{
+            privacythree = "";
+        }
+        document.getElementById('privacy').innerHTML = "<p>［プライバシー情報］ご家族と共有される情報の共有範囲が指定されています。共有する情報: " + privacyone + privacytwo + privacythree;
+    }else{
+        document.getElementById('privacy').innerHTML = `
+        <h2>プライバシー情報</h2>
+        <h4>ご家族と共有される情報の種類を設定してください。</h4>
+        <p>Yo-gurutoSekkenはあなたのプライバシーを保護し、あなたが共有したくない情報は他の人とは一切共有しません。</p>
+        <b>共有する情報</b>
+        <input type="checkbox" class="privacy" name="privacy" value="1">感知した危険運転の種類
+        <input type="checkbox" class="privacy" name="privacy" value="2">危険運転の感知時刻
+        <input type="checkbox" class="privacy" name="privacy" value="3">危険運転の感知場所・地図
+        <button onclick="getValue()">決定</button>
+        `;
+    }
+}
+
+function getValue() {
+    var privacy = document.getElementsByClassName('privacy');
+    var str = '';
+    for ( i = 0; i < 3; i++) {
+        if ( privacy[i].checked === true ) {
+            str += privacy[i].value + " ";
+        }
+    }
+    alert(str);
+    document.cookie = `privacy=${str}`;
+}
+</script>
 <div class="card">
   <div class="card-header">
     位置情報に基づく天候情報
