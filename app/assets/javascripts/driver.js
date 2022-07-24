@@ -198,7 +198,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                 console.log(e);
             }
 	    
-	    if (speed > 70){
+	    if (speed > 1){
 	       if (notifyto === "qqq"){
             document.getElementById( "ido" ).value = lat ;
             document.getElementById( "keido" ).value = lng ;
@@ -229,7 +229,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                console.log(data)
            })
            setTimeout(function(){
-                           document.getElementById( "ido" ).value = lat ;
+            document.getElementById( "ido" ).value = lat ;
             document.getElementById( "keido" ).value = lng ;
             document.getElementById( "caution" ).value = "危険速度" ;
             document.getElementById( "detail" ).value = `${speednumber}km/h` ;
