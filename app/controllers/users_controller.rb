@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     logger.debug("Under is the part of it")
-    logger.debug(@user)
+    logger.debug(@user.inspect)
 
     if @user.update(user_params)
       flash[:success] = 'Slackは正常に連携されました'
