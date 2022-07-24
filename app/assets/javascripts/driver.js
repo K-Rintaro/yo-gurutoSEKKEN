@@ -53,12 +53,12 @@ function speakSwitch() {
   speakMsg.rate = 1.0;
   if ( speakCommentFlg == 1 ) {
     speakCommentFlg = 0;
-    speakMsg.text = 'コメント読み上げをオフにしました。';
+    speakMsg.text = '音声警告機能をオフにしました。';
     window.speechSynthesis.speak(speakMsg);
     return;
   }
   speakCommentFlg = 1;
-  speakMsg.text = 'コメント読み上げをオンにしました。';
+  speakMsg.text = '音声警告機能をオンにしました。';
   window.speechSynthesis.speak(speakMsg);
 }
 
@@ -216,64 +216,62 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             catch(e){
                 console.log(e);
             }
+            if (speed > 1){
+                if (notifyto === "qqq"){
+                 document.getElementById( "ido" ).value = lat ;
+                 document.getElementById( "keido" ).value = lng ;
+                 document.getElementById( "caution" ).value = "危険速度" ;
+                 document.getElementById( "detail" ).value = `${speednumber}km/h` ;
+                 document.getElementById("formdesu").submit();
+                 document.getElementById( "ido" ).value = "" ;
+                 document.getElementById( "keido" ).value = "" ;
+                 document.getElementById( "caution" ).value = "" ;
+                 document.getElementById( "detail" ).value = "" ;
+                 document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" class="img-fluid" alt="Responsive image">`
+                        var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
+                        utterance.text = sokudochoukadayo;
+                        speechSynthesis.speak(utterance);
+                }else{
+                 async function postData(url = '', data = {}) {
+                     const response = await fetch(url, {
+                         method: 'POST',
+                         headers: {
+                             'Content-Type': 'application/json'
+                         },
+                     body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h`, to: notifyto }) 
+                    })
+                    return response.json();
+                 }
+                postData('https://foryo-guruto.herokuapp.com/slacker')
+                .then(data => {
+                    console.log(data)
+                })
+                setTimeout(function(){
+                 document.getElementById( "ido" ).value = lat ;
+                 document.getElementById( "keido" ).value = lng ;
+                 document.getElementById( "caution" ).value = "危険速度" ;
+                 document.getElementById( "detail" ).value = `${speednumber}km/h` ;
+                 document.getElementById("formdesu").submit();
+                 document.getElementById( "ido" ).value = "" ;
+                 document.getElementById( "keido" ).value = "" ;
+                 document.getElementById( "caution" ).value = "" ;
+                 document.getElementById( "detail" ).value = "" ;
+                 document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" class="img-fluid" alt="Responsive image">`
+                 }, 3000);
+                 setTimeout(function(){
+                    var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
+                    utterance.text = sokudochoukadayo;
+                    speechSynthesis.speak(utterance);
+                 }, 10000)
+                }
+             }
 	    mymap.setView([lat, lng], 17);
 	    let marker = L.marker([lat, lng]).addTo(mymap);
 	    console.log("SPEED: " + speed)
 		})
 	}
-
-    const chousupan = () => {
-        if (speed > 1){
-            if (notifyto === "qqq"){
-             document.getElementById( "ido" ).value = lat ;
-             document.getElementById( "keido" ).value = lng ;
-             document.getElementById( "caution" ).value = "危険速度" ;
-             document.getElementById( "detail" ).value = `${speednumber}km/h` ;
-             document.getElementById("formdesu").submit();
-             document.getElementById( "ido" ).value = "" ;
-             document.getElementById( "keido" ).value = "" ;
-             document.getElementById( "caution" ).value = "" ;
-             document.getElementById( "detail" ).value = "" ;
-             document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" class="img-fluid" alt="Responsive image">`
-                    var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
-                    utterance.text = sokudochoukadayo;
-                    speechSynthesis.speak(utterance);
-            }else{
-             async function postData(url = '', data = {}) {
-                 const response = await fetch(url, {
-                     method: 'POST',
-                     headers: {
-                         'Content-Type': 'application/json'
-                     },
-                 body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h`, to: notifyto }) 
-                })
-                return response.json();
-             }
-            postData('https://foryo-guruto.herokuapp.com/slacker')
-            .then(data => {
-                console.log(data)
-            })
-            setTimeout(function(){
-             document.getElementById( "ido" ).value = lat ;
-             document.getElementById( "keido" ).value = lng ;
-             document.getElementById( "caution" ).value = "危険速度" ;
-             document.getElementById( "detail" ).value = `${speednumber}km/h` ;
-             document.getElementById("formdesu").submit();
-             document.getElementById( "ido" ).value = "" ;
-             document.getElementById( "keido" ).value = "" ;
-             document.getElementById( "caution" ).value = "" ;
-             document.getElementById( "detail" ).value = "" ;
-             document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" class="img-fluid" alt="Responsive image">`
-                    var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
-                    utterance.text = sokudochoukadayo;
-                    speechSynthesis.speak(utterance);
-             }, 3000);
-            }
-         }
-    }
 	
 	setInterval(checkdayo, 1000);
-    setInterval(chousupan, 3000);
 
 
 	navigator.geolocation.watchPosition((position) => {
