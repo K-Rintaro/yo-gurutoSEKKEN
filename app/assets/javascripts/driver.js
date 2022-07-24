@@ -233,6 +233,30 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                  document.getElementById( "detail" ).value = "" ;
                  document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image">`
                 }else{
+                    var cautionda;
+                    if(getCookieValue('privacy').includes('1')){
+                        cautionda = "危険速度"
+                    }else{
+                        cautionda = "プライバシー設定により非表示"
+                    }
+                    var detailda;
+                    if(getCookieValue('privacy').includes('2')){
+                        detailda = `${speednumber}km/h`
+                    }else{
+                        detailda = "プライバシー設定により非表示"
+                    }
+                    var idoda;
+                    if(getCookieValue('privacy').includes('3')){
+                        idoda = lat
+                    }else{
+                        idoda = "プライバシー設定により非表示"
+                    }
+                    var keidoda;
+                    if(getCookieValue('privacy').includes('3')){
+                        keidoda = lng
+                    }else{
+                        keidoda = "プライバシー設定により非表示"
+                    }
                  if(performance.now - localStorage.getItem('redunduncy') > 20000){
                     var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                     utterance.text = sokudochoukadayo;
@@ -245,7 +269,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                          headers: {
                              'Content-Type': 'application/json'
                          },
-                     body: JSON.stringify({ ido: lat, keido: lng, caution: "危険速度", detail: `${speednumber}km/h`, to: notifyto }) 
+                     body: JSON.stringify({ ido: idoda, keido: keidoda, caution: cautionda, detail: detailda, to: notifyto }) 
                     })
                     return response.json();
                  }
@@ -268,6 +292,17 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                  utterance.text = sokudochoukadayo;
                  speechSynthesis.speak(utterance);
                  }, 3000);
+
+                 function getCookieValue(key) {
+                    const cookies = document.cookie.split(';');
+                    for (let cookie of cookies) {
+                        var cookiesArray = cookie.split('='); 
+                        if (cookiesArray[0].trim() == key.trim()) { 
+                            return cookiesArray[1];  // (key[0],value[1])
+                        }
+                    }
+                    return '';
+                }
                 }
              }
 	    mymap.setView([lat, lng], 17);
