@@ -1,3 +1,5 @@
+require "pry"
+
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:show, :destroy, :edit, :update, :hello, :edit]
   def show
@@ -24,7 +26,6 @@ class UsersController < ApplicationController
   end
   
   def hello
-    @user = User.find(params[:id])
     require 'uri'
     uri = URI::parse(request.url)
     q_array = URI::decode_www_form(uri.query)
