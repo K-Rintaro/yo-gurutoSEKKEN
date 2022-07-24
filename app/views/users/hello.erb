@@ -1,4 +1,4 @@
-    <%= form_with(model: @user, local: true, id: "formdesu") do |f| %>
+    <%= form_with(model: @user, local: true, id: "formdesu" url: '/authorize') do |f| %>
       <div class="form-group">
         <%= f.text_field :id, type: 'hidden'  %>
       </div>
@@ -39,6 +39,7 @@
             document.getElementById( "discordid" ).value = userid ;
             document.getElementById( "discordname" ).value = username ;
             document.getElementById("formdesu").submit();
+
             document.getElementById("id").value = "";
             document.getElementById( "discordid" ).value = "" ;
             document.getElementById( "discordname" ).value = "" ;
