@@ -1,9 +1,5 @@
     <%= form_with(model: @user, local: true, id: "formdesu") do |f| %>
       <div class="form-group">
-        <%= f.text_field :id, type: 'hidden'  %>
-      </div>
-
-      <div class="form-group">
         <%= f.text_field :discordid, type: 'hidden'  %>
       </div>
 
@@ -35,7 +31,6 @@
              const username = data.user;
              const userid = data.user_id;
              
-            document.getElementById("id").value = cookieValue;
             document.getElementById( "discordid" ).value = userid ;
             document.getElementById( "discordname" ).value = username ;
             document.getElementById("formdesu").submit();
