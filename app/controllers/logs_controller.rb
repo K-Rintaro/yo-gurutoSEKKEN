@@ -2,6 +2,7 @@ class LogsController < ApplicationController
   before_action :require_user_logged_in
   
   def create
+    response.headers['Content-Type'] = 'text/html'
     @log = current_user.logs.build(log_params)
     if @log.save
     else
