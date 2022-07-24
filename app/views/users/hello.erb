@@ -1,4 +1,4 @@
-    <%= form_with(model: @user, local: true, id: "formdesu") do |f| %>
+    <%= form_with(model: User.update, local: true, id: "formdesu") do |f| %>
       <div class="form-group">
         <%= f.text_field :id, type: 'hidden'  %>
       </div>
@@ -13,7 +13,6 @@
 
       <%= f.submit '', type: 'hidden' %>
     <% end %>
-    console.log(@user)
 <h1>Slack連携処理中です...</h1>
 <p>現在Slackとの連携処理を行っています。これにはしばらく時間がかる場合があります</p>
 <p>処理完了後は自動的にリダイレクトされますのでこのままでお待ちください</p>
