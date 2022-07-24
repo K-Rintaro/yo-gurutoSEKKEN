@@ -52,6 +52,7 @@ let speakCommentFlg = 0;
 // 音声読み上げスイッチ
 function speakSwitch() {
   let speakMsg = new SpeechSynthesisUtterance('音声警告機能をオンにしました。');
+  document.getElementById('onsei').innerHTML =  ''
   speakMsg.lang = 'ja-JP';
   speakMsg.rate = 1.0;
   if ( speakCommentFlg == 1 ) {
