@@ -22,6 +22,9 @@ function storageAvailable(type) {
             (storage && storage.length !== 0);
     }
 }
+
+localStorage.setItem('redunduncy', 0)
+
 var request = window.superagent;
 var mymap = L.map('map');
 if( storageAvailable('localStorage') ){
@@ -228,10 +231,13 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                  document.getElementById( "caution" ).value = "" ;
                  document.getElementById( "detail" ).value = "" ;
                  document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" class="img-fluid" alt="Responsive image">`
-                        var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
-                        utterance.text = sokudochoukadayo;
-                        speechSynthesis.speak(utterance);
                 }else{
+                 if(performance.now - localStorage.getItem('redunduncy') > 10000){
+                    var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
+                    utterance.text = sokudochoukadayo;
+                    speechSynthesis.speak(utterance);
+                 }
+                 localStorage.setItem('redunduncy', performance.now);
                  async function postData(url = '', data = {}) {
                      const response = await fetch(url, {
                          method: 'POST',
@@ -257,12 +263,10 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                  document.getElementById( "caution" ).value = "" ;
                  document.getElementById( "detail" ).value = "" ;
                  document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" class="img-fluid" alt="Responsive image">`
+                 var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
+                 utterance.text = sokudochoukadayo;
+                 speechSynthesis.speak(utterance);
                  }, 3000);
-                 setTimeout(function(){
-                    var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
-                    utterance.text = sokudochoukadayo;
-                    speechSynthesis.speak(utterance);
-                 }, 30000)
                 }
              }
 	    mymap.setView([lat, lng], 17);
