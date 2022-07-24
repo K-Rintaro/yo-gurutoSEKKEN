@@ -273,7 +273,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
     }
 	
 	setInterval(checkdayo, 1000);
-    setInterval(chousupan, 10000);
+    setInterval(chousupan, 3000);
 
 
 	navigator.geolocation.watchPosition((position) => {
