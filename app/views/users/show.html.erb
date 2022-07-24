@@ -12,8 +12,8 @@ if(!getCookieValue('privacy')){
     <h4>ご家族と共有される情報の種類を設定してください。</h4>
     <p>Yo-gurutoSekkenはあなたのプライバシーを保護し、あなたが共有したくない情報は他の人とも一切共有しません。</p>
     <b>共有する情報</b>
-    <input type="checkbox" class="privacy" name="privacy" value="1">感知した危険運転の種類
-    <input type="checkbox" class="privacy" name="privacy" value="2">危険運転の感知時刻
+    <input type="checkbox" class="privacy" name="privacy" value="1">感知した危険運転の種類（例：速度超過・信号周辺での警告）
+    <input type="checkbox" class="privacy" name="privacy" value="2">警告の詳細情報（例：感知した走行速度）
     <input type="checkbox" class="privacy" name="privacy" value="3">危険運転の感知場所・地図
     <button onclick="getValue()">決定</button>
     `;
@@ -26,7 +26,7 @@ if(!getCookieValue('privacy')){
     }
     var privacytwo;
     if(getCookieValue('privacy').includes('2')){
-        privacytwo = "危険運転の感知時刻 ";
+        privacytwo = "警告の詳細情報 ";
     }else{
         privacytwo = "";
     }
