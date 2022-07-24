@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   
   def hello
     @user = User.find_by(id: cookies[:cookieuserid])
+    logger.debug(@user.inspect)
     require 'uri'
     uri = URI::parse(request.url)
     q_array = URI::decode_www_form(uri.query)
