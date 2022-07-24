@@ -1,5 +1,3 @@
-require "pry"
-
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:show, :destroy, :edit, :update, :hello, :edit]
   def show
