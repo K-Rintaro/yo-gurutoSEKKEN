@@ -194,45 +194,9 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         </div>
 	    `;
 
-       var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
-        var request = new XMLHttpRequest();
-        let mainarray;
-        request.open('GET', url);
-        request.onreadystatechange = function () {
-        if (request.readyState != 4) {
-        } else if (request.status != 200) {
-        console.log(false)
-        } else {
-        let result = request.responseText;
-        alert(JSON.stringify(result))
-        let rjson = JSON.parse(result);
-        mainarray = rjson.routes[0].sections[0].spans[0];
-        let names = mainarray.names;
-
-        let seigensokudo;
-        if(seigensokudo == null){
-            seigensokudo = "取得中...";
-        }else{
-            seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10);
-        }
-
-        let main;
-        if (names == null){
-            main = "道路名なし"
-        }else{
-            var name = names.filter(x => x.language === 'ja')
-            var arnum = Object.keys(name).length;
-            var arnummain = arnum - 1;
-            main = name[arnummain].value;
-        }
-        console.log(mainarray);
-        console.log("取得済み制限速度: " + seigensokudo + "km/h");
-        document.getElementById("seigen").value = "制限速度: " + seigensokudo + "km/h\n検出した道路: " + main;
-
-        document.cookie = "seigen=" + seigensokudo;
-        }
-        };
-        request.send(null);
+        mymap.setView([lat, lng], 17);
+	    let marker = L.marker([lat, lng]).addTo(mymap);
+	    console.log("SPEED: " + speed)
 
 
         if( storageAvailable('localStorage') ){
@@ -265,6 +229,48 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             catch(e){
                 console.log(e);
             }
+
+            var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
+            var request = new XMLHttpRequest();
+            let mainarray;
+            request.open('GET', url);
+            request.onreadystatechange = function () {
+            if (request.readyState != 4) {
+            } else if (request.status != 200) {
+            console.log(false)
+            } else {
+            let result = request.responseText;
+            let rjson = JSON.parse(result);
+            mainarray = rjson.routes[0].sections[0].spans[0];
+            let names = mainarray.names;
+    
+            let seigensokudo;
+            if(seigensokudo == null){
+                seigensokudo = "取得中...";
+            }else{
+                seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10);
+            }
+    
+            let main;
+            if (names == null){
+                main = "道路名なし"
+            }else{
+                var name = names.filter(x => x.language === 'ja')
+                var arnum = Object.keys(name).length;
+                var arnummain = arnum - 1;
+                main = name[arnummain].value;
+            }
+            console.log(mainarray);
+            console.log("取得済み制限速度: " + seigensokudo + "km/h");
+            document.getElementById("seigen").value = "<p>制限速度: " + seigensokudo + "km/h\n検出した道路: " + main + "</p>";
+    
+            document.cookie = "seigen=" + seigensokudo;
+            }
+            };
+            request.send(null);
+
+            alert("working well at least L273")
+
             if (!isNaN(getCookieValue("seigen"))){
                 if (speed > getCookieValue("seigen") + 10){
                     if (notifyto === "qqq"){
@@ -468,9 +474,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                     }
                 }
             }
-	    mymap.setView([lat, lng], 17);
-	    let marker = L.marker([lat, lng]).addTo(mymap);
-	    console.log("SPEED: " + speed)
+
 		})
 	}
 	
