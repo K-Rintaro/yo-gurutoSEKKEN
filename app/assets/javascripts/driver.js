@@ -191,11 +191,9 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
     document.getElementById("jisoku").innerHTML = `
 	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
         <h2>現在時速 ${speednumber} km(目安)</h2>
-        <h3>取得した道路の制限速度 ${seigensokudo}km/h</h3>
-        <h3>取得した道路情報 ${main}</h3>
         </div>
 	    `;
-        
+
        var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
         var request = new XMLHttpRequest();
         let mainarray;
