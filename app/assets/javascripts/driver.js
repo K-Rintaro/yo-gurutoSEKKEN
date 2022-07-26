@@ -25,6 +25,14 @@ function storageAvailable(type) {
 
 document.cookie = "seigen=70";
 
+function start(id) {
+	id = setInterval(function () {
+        document.getElementById("cautionpic").innerHTML = "";
+	}, 20000);
+}
+
+start('id');
+
 localStorage.setItem('redunduncy', 0)
 
 var request = window.superagent;
@@ -188,16 +196,9 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    let speed = speedmoto * 3.6
 	    let speednumber = Math.floor(speed);
 
-    document.getElementById("jisoku").innerHTML = `
-	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
-        <h2>現在時速 ${speednumber} km(目安)</h2>
-        </div>
-	    `;
-
         mymap.setView([lat, lng], 17);
 	    let marker = L.marker([lat, lng]).addTo(mymap);
 	    console.log("SPEED: " + speed)
-
 
         if( storageAvailable('localStorage') ){
         	if (!speed === null){
@@ -262,9 +263,13 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             }
             console.log(mainarray);
             console.log("取得済み制限速度: " + seigensokudo + "km/h");
-            document.getElementById("seigen").value = "<p>制限速度: " + seigensokudo + "km/h\n検出した道路: " + main + "</p>";
-    
             document.cookie = "seigen=" + seigensokudo;
+            document.getElementById("jisoku").innerHTML = `
+            <div class="shadow-lg p-3 mb-5 bg-white rounded">
+            <h2>現在時速 ${speednumber} km(目安)</h2>
+            <p>制限速度: " + seigensokudo + "km/h\n検出した道路: " + main + "</p>
+            </div>
+            `;
             }
             };
             request.send(null);
@@ -272,28 +277,20 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             if (!isNaN(getCookieValue("seigen"))){
                 if (speed > getCookieValue("seigen") + 10){
                     if (notifyto === "qqq"){
-                        setTimeout(function(){
-                            document.getElementById( "ido" ).value = lat ;
-                            document.getElementById( "keido" ).value = lng ;
-                            document.getElementById( "caution" ).value = "危険速度" ;
-                            document.getElementById( "detail" ).value = `${speednumber}km/h` ;
-                            document.getElementById("formdesu").submit();
-                            document.getElementById( "ido" ).value = "" ;
-                            document.getElementById( "keido" ).value = "" ;
-                            document.getElementById( "caution" ).value = "" ;
-                            document.getElementById( "detail" ).value = "" ;
-                            document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image"/>`
-                            var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。本道路`
-                            utterance.text = sokudochoukadayo;
-                            speechSynthesis.speak(utterance);
-                            }, 3000);
                     　if(performance.now - localStorage.getItem('redunduncy') > 20000){
-                        document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image">`
-                        var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
+                        document.getElementById( "ido" ).value = lat ;
+                        document.getElementById( "keido" ).value = lng ;
+                        document.getElementById( "caution" ).value = "危険速度" ;
+                        document.getElementById( "detail" ).value = `${speednumber}km/h` ;
+                        document.getElementById("formdesu").submit();
+                        document.getElementById( "ido" ).value = "" ;
+                        document.getElementById( "keido" ).value = "" ;
+                        document.getElementById( "caution" ).value = "" ;
+                        document.getElementById( "detail" ).value = "" ;
+                        document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image"/>`
+                        var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。制限速度をプラス${speed - getCookieValue("seigen")}キロメートル超過しています。`
                         utterance.text = sokudochoukadayo;
                         speechSynthesis.speak(utterance);
-                        localStorage.setItem('redunduncy', performance.now);
-                        document.getElementById("cautionpic").innerHTML = "";
                      }
                     }else{
                         var cautionda;
@@ -327,36 +324,31 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                             speechSynthesis.speak(utterance);
                             localStorage.setItem('redunduncy', performance.now);
                             document.getElementById("cautionpic").innerHTML = "";
+                            document.getElementById( "ido" ).value = lat ;
+                            document.getElementById( "keido" ).value = lng ;
+                            document.getElementById( "caution" ).value = "危険速度" ;
+                            document.getElementById( "detail" ).value = `${speednumber}km/h` ;
+                            document.getElementById("formdesu").submit();
+                            document.getElementById( "ido" ).value = "" ;
+                            document.getElementById( "keido" ).value = "" ;
+                            document.getElementById( "caution" ).value = "" ;
+                            document.getElementById( "detail" ).value = "" ;
+
+                            async function postData(url = '', data = {}) {
+                                const response = await fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                body: JSON.stringify({ ido: idoda, keido: keidoda, caution: cautionda, detail: detailda, to: notifyto }) 
+                               })
+                               return response.json();
+                            }
+                           postData('https://foryo-guruto.herokuapp.com/slacker')
+                           .then(data => {
+                               console.log(data)
+                           })
                          }
-                     async function postData(url = '', data = {}) {
-                         const response = await fetch(url, {
-                             method: 'POST',
-                             headers: {
-                                 'Content-Type': 'application/json'
-                             },
-                         body: JSON.stringify({ ido: idoda, keido: keidoda, caution: cautionda, detail: detailda, to: notifyto }) 
-                        })
-                        return response.json();
-                     }
-                    postData('https://foryo-guruto.herokuapp.com/slacker')
-                    .then(data => {
-                        console.log(data)
-                    })
-                    setTimeout(function(){
-                     document.getElementById( "ido" ).value = lat ;
-                     document.getElementById( "keido" ).value = lng ;
-                     document.getElementById( "caution" ).value = "危険速度" ;
-                     document.getElementById( "detail" ).value = `${speednumber}km/h` ;
-                     document.getElementById("formdesu").submit();
-                     document.getElementById( "ido" ).value = "" ;
-                     document.getElementById( "keido" ).value = "" ;
-                     document.getElementById( "caution" ).value = "" ;
-                     document.getElementById( "detail" ).value = "" ;
-                     document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image"/>`
-                     var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
-                     utterance.text = sokudochoukadayo;
-                     speechSynthesis.speak(utterance);
-                     }, 3000);
     
                      function getCookieValue(key) {
                         const cookies = document.cookie.split(';');
@@ -373,28 +365,21 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             }else{
                 if (speed > 70){
                     if (notifyto === "qqq"){
-                        setTimeout(function(){
-                            document.getElementById( "ido" ).value = lat ;
-                            document.getElementById( "keido" ).value = lng ;
-                            document.getElementById( "caution" ).value = "危険速度" ;
-                            document.getElementById( "detail" ).value = `${speednumber}km/h` ;
-                            document.getElementById("formdesu").submit();
-                            document.getElementById( "ido" ).value = "" ;
-                            document.getElementById( "keido" ).value = "" ;
-                            document.getElementById( "caution" ).value = "" ;
-                            document.getElementById( "detail" ).value = "" ;
-                            document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image"/>`
-                            var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。本道路`
-                            utterance.text = sokudochoukadayo;
-                            speechSynthesis.speak(utterance);
-                            }, 3000);
                     　if(performance.now - localStorage.getItem('redunduncy') > 20000){
                         document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image">`
+                        document.getElementById( "ido" ).value = lat ;
+                        document.getElementById( "keido" ).value = lng ;
+                        document.getElementById( "caution" ).value = "危険速度" ;
+                        document.getElementById( "detail" ).value = `${speednumber}km/h` ;
+                        document.getElementById("formdesu").submit();
+                        document.getElementById( "ido" ).value = "" ;
+                        document.getElementById( "keido" ).value = "" ;
+                        document.getElementById( "caution" ).value = "" ;
+                        document.getElementById( "detail" ).value = "" ;
                         var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                         utterance.text = sokudochoukadayo;
                         speechSynthesis.speak(utterance);
                         localStorage.setItem('redunduncy', performance.now);
-                        document.getElementById("cautionpic").innerHTML = "";
                      }
                     }else{
                         var cautionda;
@@ -422,43 +407,36 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                             keidoda = "プライバシー設定により非表示"
                         }
                         　if(performance.now - localStorage.getItem('redunduncy') > 20000){
+                            document.getElementById( "ido" ).value = lat ;
+                            document.getElementById( "keido" ).value = lng ;
+                            document.getElementById( "caution" ).value = "危険速度" ;
+                            document.getElementById( "detail" ).value = `${speednumber}km/h` ;
+                            document.getElementById("formdesu").submit();
+                            document.getElementById( "ido" ).value = "" ;
+                            document.getElementById( "keido" ).value = "" ;
+                            document.getElementById( "caution" ).value = "" ;
+                            document.getElementById( "detail" ).value = "" ;
                             document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image">`
                             var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
                             utterance.text = sokudochoukadayo;
                             speechSynthesis.speak(utterance);
                             localStorage.setItem('redunduncy', performance.now);
-                            document.getElementById("cautionpic").innerHTML = "";
+                            async function postData(url = '', data = {}) {
+                                const response = await fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                body: JSON.stringify({ ido: idoda, keido: keidoda, caution: cautionda, detail: detailda, to: notifyto }) 
+                               })
+                               return response.json();
+                            }
+                           postData('https://foryo-guruto.herokuapp.com/slacker')
+                           .then(data => {
+                               console.log(data)
+                           })
                          }
-                     async function postData(url = '', data = {}) {
-                         const response = await fetch(url, {
-                             method: 'POST',
-                             headers: {
-                                 'Content-Type': 'application/json'
-                             },
-                         body: JSON.stringify({ ido: idoda, keido: keidoda, caution: cautionda, detail: detailda, to: notifyto }) 
-                        })
-                        return response.json();
-                     }
-                    postData('https://foryo-guruto.herokuapp.com/slacker')
-                    .then(data => {
-                        console.log(data)
-                    })
-                    setTimeout(function(){
-                     document.getElementById( "ido" ).value = lat ;
-                     document.getElementById( "keido" ).value = lng ;
-                     document.getElementById( "caution" ).value = "危険速度" ;
-                     document.getElementById( "detail" ).value = `${speednumber}km/h` ;
-                     document.getElementById("formdesu").submit();
-                     document.getElementById( "ido" ).value = "" ;
-                     document.getElementById( "keido" ).value = "" ;
-                     document.getElementById( "caution" ).value = "" ;
-                     document.getElementById( "detail" ).value = "" ;
-                     document.getElementById("cautionpic").innerHTML = `<img src="https://raw.githubusercontent.com/K-Rintaro/yo-gurutoSEKKEN/main/app/assets/images/caution.png" alt="Responsive image"/>`
-                     var sokudochoukadayo = `危険速度を感知しました。感知速度は時速${speednumber}キロメートルです。高速道路の場合はこの限りではありません。`
-                     utterance.text = sokudochoukadayo;
-                     speechSynthesis.speak(utterance);
-                     }, 3000);
-    
+
                      function getCookieValue(key) {
                         const cookies = document.cookie.split(';');
                         for (let cookie of cookies) {
@@ -469,8 +447,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                         }
                         return '';
                     }
-
-                    alert("working well at L473")
                     }
                 }
             }
