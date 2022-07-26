@@ -247,9 +247,9 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
     
             let seigensokudo;
             if(seigensokudo == null){
-                seigensokudo = "取得中...";
+                seigensokudo = "検出中...";
             }else{
-                seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10);
+                seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10) + "km/h";
             }
     
             let main;
@@ -267,8 +267,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             document.getElementById("jisoku").innerHTML = `
             <div class="shadow-lg p-3 mb-5 bg-white rounded">
             <h2>現在時速 ${speednumber} km(目安)</h2>
-            <p>制限速度: ${seigensokudo}km/h</p>
-            <p>検出した道路情報: ${main}</p>
+            <p>制限速度: ${seigensokudo}</p>
+            <p>検出した道路名: ${main}</p>
             </div>
             `;
             }
