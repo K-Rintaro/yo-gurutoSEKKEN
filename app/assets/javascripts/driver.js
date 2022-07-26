@@ -216,7 +216,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             method: "GET",
           }).then(response => response.text())
           .then(text => {
-            jyouhou = JSON.parse(result)
+            jyouhou = JSON.parse(text)
         });
 
         alert(jyouhou);
