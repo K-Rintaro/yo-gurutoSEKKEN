@@ -204,6 +204,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         console.log(false)
         } else {
         let result = request.responseText;
+        alert(JSON.stringify(result))
         let rjson = JSON.parse(result);
         mainarray = rjson.routes[0].sections[0].spans[0];
         let names = mainarray.names;
