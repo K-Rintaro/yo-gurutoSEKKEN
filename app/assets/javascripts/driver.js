@@ -186,7 +186,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    let speed = speedmoto * 3.6
 	    let speednumber = Math.floor(speed);
 
-        var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
+/*         var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
         var request = new XMLHttpRequest();
         let mainarray;
         request.open('GET', url);
@@ -209,7 +209,17 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             seigensokudo = "取得中...";
         }else{
             seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10);
-        }
+        } */
+
+        let jyouhou;
+        fetch(`https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`, {
+            method: "GET",
+          }).then(response => response.text())
+          .then(text => {
+            jyouhou = JSON.parse(result)
+        });
+
+        alert(jyouhou);
 
         let main;
         if (names == null){
