@@ -230,8 +230,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         document.getElementById("seigen").value = "制限速度: " + seigensokudo + "km/h\n検出した道路: " + main;
 
         document.cookie = "seigen=" + seigensokudo;
-
-        alert("制限速度: " + seigensokudo + "km/h\n検出した道路: " + main)
         }
         };
         request.send(null);
