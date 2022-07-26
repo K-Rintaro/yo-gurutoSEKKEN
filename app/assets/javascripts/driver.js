@@ -269,8 +269,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             };
             request.send(null);
 
-            alert("working well at least L273")
-
             if (!isNaN(getCookieValue("seigen"))){
                 if (speed > getCookieValue("seigen") + 10){
                     if (notifyto === "qqq"){
@@ -471,6 +469,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                         }
                         return '';
                     }
+
+                    alert("working well at L473")
                     }
                 }
             }
