@@ -217,9 +217,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
           }).then(response => response.text())
           .then(text => {
             jyouhou = JSON.parse(text)
+            alert(jyouhou);
         });
-
-        alert(jyouhou);
 
         let main;
         if (names == null){
