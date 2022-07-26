@@ -188,26 +188,24 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 
         var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
         var request = new XMLHttpRequest();
-        request.open('GET', url);
-        let result;
-        let rjson;
         let mainarray;
-        let names;
+        request.open('GET', url);
         request.onreadystatechange = function () {
         if (request.readyState != 4) {
         } else if (request.status != 200) {
         console.log(false)
         } else {
-        result = request.responseText;
-        rjson = JSON.parse(result);
+        let result = request.responseText;
+        let rjson = JSON.parse(result);
         mainarray = rjson.routes[0].sections[0].spans[0];
-        names = mainarray.names;
         }
         };
         request.send(null);
 
+        let names = mainarray.names;
+
         let seigensokudo;
-        if(rjson.routes[0].sections[0].spans[0].speedLimit == null){
+        if(seigensokudo == null){
             seigensokudo = "取得中...";
         }else{
             seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10);
