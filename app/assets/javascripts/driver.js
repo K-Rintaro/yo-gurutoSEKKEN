@@ -23,6 +23,8 @@ function storageAvailable(type) {
     }
 }
 
+document.cookie = "seigen=70";
+
 localStorage.setItem('redunduncy', 0)
 
 var request = window.superagent;
@@ -186,7 +188,16 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
 	    let speed = speedmoto * 3.6
 	    let speednumber = Math.floor(speed);
 
-/*         var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
+    document.getElementById("jisoku").innerHTML = `
+	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        <h2>現在時速 ${speednumber} km(目安)</h2>
+        <h3>取得した道路の制限速度 ${seigensokudo}km/h</h3>
+        <h3>取得した道路情報 ${main}</h3>
+        <div id="seigen"></div>
+        </div>
+	    `;
+
+       var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
         var request = new XMLHttpRequest();
         let mainarray;
         request.open('GET', url);
@@ -198,10 +209,6 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         let result = request.responseText;
         let rjson = JSON.parse(result);
         mainarray = rjson.routes[0].sections[0].spans[0];
-        }
-        };
-        request.send(null);
-
         let names = mainarray.names;
 
         let seigensokudo;
@@ -209,16 +216,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             seigensokudo = "取得中...";
         }else{
             seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10);
-        } */
-
-        let jyouhou;
-        fetch(`https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`, {
-            method: "GET",
-          }).then(response => response.text())
-          .then(text => {
-            jyouhou = JSON.parse(text)
-            alert(jyouhou);
-        });
+        }
 
         let main;
         if (names == null){
@@ -231,17 +229,13 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
         }
         console.log(mainarray);
         console.log("取得済み制限速度: " + seigensokudo + "km/h");
-        console.log(name);
-        console.log(arnum);
-        console.log(main);
+        document.getElementById("seigen").value = "制限速度: " + seigensokudo + "km/h\n検出した道路: " + main
 
-	    document.getElementById("jisoku").innerHTML = `
-	    <div class="shadow-lg p-3 mb-5 bg-white rounded">
-        <h2>現在時速 ${speednumber} km(目安)</h2>
-        <h3>取得した道路の制限速度 ${seigensokudo}km/h</h3>
-        <h3>取得した道路情報 ${main}</h3>
-        </div>
-	    `;
+        document.cookie = "seigen=" + seigensokudo;
+        }
+        };
+        request.send(null);
+
 
         if( storageAvailable('localStorage') ){
         	if (!speed === null){
@@ -273,8 +267,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             catch(e){
                 console.log(e);
             }
-            if (!isNaN(seigensokudo)){
-                if (speed > seigensokudo + 10){
+            if (!isNaN(getCookieValue("seigen"))){
+                if (speed > getCookieValue("seigen") + 10){
                     if (notifyto === "qqq"){
                         setTimeout(function(){
                             document.getElementById( "ido" ).value = lat ;
