@@ -267,8 +267,8 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             document.getElementById("jisoku").innerHTML = `
             <div class="shadow-lg p-3 mb-5 bg-white rounded">
             <h2>現在時速 ${speednumber} km(目安)</h2>
-            <p>制限速度: ${seigensokudo}</p>
-            <p>検出した道路名: ${main}</p>
+            <p class="font-weight-bold">制限速度: ${seigensokudo}</p>
+            <p class="font-weight-bold">検出した道路名: ${main}</p>
             </div>
             `;
             }
