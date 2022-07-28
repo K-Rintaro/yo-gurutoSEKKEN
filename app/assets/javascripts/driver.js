@@ -249,7 +249,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             if(seigensokudo == null){
                 seigensokudo = "検出中...";
             }else{
-                seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10) + "km/h";
+                seigensokudo = parseInt(rjson.routes[0].sections[0].spans[0].speedLimit * 3.6, 10);
             }
     
             let main;
@@ -267,7 +267,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             document.getElementById("jisoku").innerHTML = `
             <div class="shadow-lg p-3 mb-5 bg-white rounded">
             <h2>現在時速 ${speednumber} km(目安)</h2>
-            <p class="font-weight-bold">制限速度: ${seigensokudo}</p>
+            <p class="font-weight-bold">制限速度: ${seigensokudo} + km/h</p>
             <p class="font-weight-bold">検出した道路名: ${main}</p>
             </div>
             `;
@@ -275,7 +275,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
             };
             request.send(null);
 
-            if (!isNaN(getCookieValue("seigen"))){
+            if (!Nan(Number(getCookieValue("seigen")) + 10)){
                 if (speed > getCookieValue("seigen") + 10){
                     if (notifyto === "qqq"){
                     　if(performance.now - localStorage.getItem('redunduncy') > 20000){

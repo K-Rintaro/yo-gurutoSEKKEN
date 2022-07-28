@@ -64,6 +64,21 @@
         cocoSsd.load().then(model => {
           model.detect(img).then(predictions => {
               console.log('Predictions: ', predictions);
+              for (let i = 0; i < predictions.length; i++) {
+                console.log(predictions[i].class)
+                if(predictions[i].class === "person"){
+                    var sokudochoukadayo = `歩行者を検出しました。お気をつけて運転してください。`
+                    utterance.text = sokudochoukadayo;
+                    speechSynthesis.speak(utterance);
+                    document.getElementById("cautiontext").innerHTML = "<h2>歩行者を検出しました。お気をつけて運転してください。</h2>"
+                }
+                if(predictions[i].class === "traffic light"){
+                    var sokudochoukadayo = `信号機を検出しました。お気をつけて運転してください。`
+                    utterance.text = sokudochoukadayo;
+                    speechSynthesis.speak(utterance);
+                    document.getElementById("cautiontext").innerHTML = "<h2>信号機を検出しました。お気をつけて運転してください。</h2>"
+                }
+            }
           });
       });
 	}, 20000);
