@@ -8,6 +8,7 @@ Please visit → https://yo-gurutosekken.herokuapp.com (URL will be changed soon
 * 🚨if the speed is over 70km/h, show alert and speak alert information. 
 * 🚨if the speed is over 60km/h in a second, show alert and speak alert information.
 * 📝 show alert history.
+* 👩‍👦‍👦 Family can notice the drive situation on time.
 * 🗺 show current location on map.
 
 ## Devices that I recommend 
