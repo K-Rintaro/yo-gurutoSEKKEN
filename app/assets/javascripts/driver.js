@@ -231,7 +231,7 @@ document.getElementById('onoff').innerHTML = `<button type="button" class="btn b
                 console.log(e);
             }
 
-            var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=2n1UsaaRzKXIX1mt22sKWmtorgz2uyZzBEvUgiO0054`;
+            var url = `https://router.hereapi.com/v8/routes?destination=${lat},${lng}&origin=${lat},${lng}&return=polyline&transportMode=car&spans=maxSpeed,names,speedLimit&apikey=APIKEY`;
             var request = new XMLHttpRequest();
             let mainarray;
             request.open('GET', url);
