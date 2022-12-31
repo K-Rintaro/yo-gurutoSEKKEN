@@ -14,3 +14,7 @@ Please visit → https://yo-gurutosekken.herokuapp.com (URL will be changed soon
 ## Devices that I recommend 
 
 Later 2015 Android, iPhone or other devices that has GPS.
+
+## Background
+
+https://github.com/K-Rintaro/tomatoSekken
