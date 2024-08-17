@@ -1,20 +1,2 @@
-# yo-gurutoSEKKEN
-
-yo-gurutoSEKKEN is the supporting application for elderly car drivers.
-
-Please visit → https://yo-gurutosekken.herokuapp.com (URL will be changed soon)
-
-## Features 
-* 🚨if the speed is over 70km/h, show alert and speak alert information. 
-* 🚨if the speed is over 60km/h in a second, show alert and speak alert information.
-* 📝 show alert history.
-* 👩‍👦‍👦 Family can notice the drive situation on time.
-* 🗺 show current location on map.
-
-## Devices that I recommend 
-
-Later 2015 Android, iPhone or other devices that has GPS.
-
-## Background
-
-https://github.com/K-Rintaro/tomatoSekken
+## 2021年2月から2022年8月まで実施した高齢者ドライバー運転支援アプリ開発プロジェクトのソースコード保管庫です。
+WebAPI関係の処理を実行する、Node.jsで開発したバックエンドサーバーのソースコードは https://github.com/K-Rintaro/tomatoSekken/tree/main で保管しております。<br>
